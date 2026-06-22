@@ -1,47 +1,84 @@
-import { Minus, Plus, Send, ShoppingBag, Trash2 } from 'lucide-react'
+import { Minus, Plus, Search, Send, ShoppingBag, Trash2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import './App.css'
 import { business, categories, menuItems, type MenuItem } from './data/menu'
 
-type Cart = Record<string, number>
+type CartEntry = {
+  quantity: number
+  note: string
+}
 
+type Cart = Record<string, CartEntry>
+
+const ALL_CATEGORY = 'הכל'
+const categoryOptions = [ALL_CATEGORY, ...categories]
 const formatShekel = (price: number) => `₪${price}`
+const formatPrice = (item: MenuItem, quantity = 1) =>
+  item.price === null ? 'מחיר בתיאום' : formatShekel(item.price * quantity)
+
+const getItemEmoji = (item: MenuItem) => {
+  if (item.category === 'שתייה') return '🥤'
+  if (item.category === 'מנות ילדים') return '🍱'
+  if (item.category === 'מגש מסיבה') return '🎉'
+  return '🍣'
+}
 
 function App() {
-  const [activeCategory, setActiveCategory] = useState<string>(categories[0])
+  const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORY)
   const [cart, setCart] = useState<Cart>({})
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [customerName, setCustomerName] = useState('')
   const [address, setAddress] = useState('')
   const [notes, setNotes] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
 
   const cartItems = useMemo(
     () =>
       Object.entries(cart)
-        .map(([id, quantity]) => {
+        .map(([id, entry]) => {
           const item = menuItems.find((menuItem) => menuItem.id === id)
-          return item ? { item, quantity } : null
+          return item ? { item, ...entry } : null
         })
-        .filter((entry): entry is { item: MenuItem; quantity: number } => Boolean(entry)),
+        .filter((entry): entry is { item: MenuItem; quantity: number; note: string } => Boolean(entry)),
     [cart],
   )
+
+  const filteredItems = useMemo(() => {
+    const normalizedSearch = searchTerm.trim().toLowerCase()
+
+    return menuItems.filter((item) => {
+      const matchesCategory = activeCategory === ALL_CATEGORY || item.category === activeCategory
+      const searchableText = `${item.name} ${item.description} ${item.category} ${(item.badges ?? []).join(' ')}`.toLowerCase()
+      const matchesSearch = normalizedSearch.length === 0 || searchableText.includes(normalizedSearch)
+      return matchesCategory && matchesSearch
+    })
+  }, [activeCategory, searchTerm])
 
   const cartCount = cartItems.reduce((sum, entry) => sum + entry.quantity, 0)
   const total = cartItems.reduce((sum, entry) => sum + (entry.item.price ?? 0) * entry.quantity, 0)
 
   const updateCart = (item: MenuItem, delta: number) => {
-    if (item.price === null) {
-      setNotes((current) => (current.includes('מגש מסיבה') ? current : `${current}${current ? '\n' : ''}מעוניין/ת במגש מסיבה - נא לחזור אליי עם מחיר.`))
-      setIsCartOpen(true)
-      return
-    }
-
     setCart((current) => {
-      const nextQuantity = Math.max((current[item.id] ?? 0) + delta, 0)
+      const currentEntry = current[item.id] ?? { quantity: 0, note: '' }
+      const nextQuantity = Math.max(currentEntry.quantity + delta, 0)
       const next = { ...current }
       if (nextQuantity === 0) delete next[item.id]
-      else next[item.id] = nextQuantity
+      else next[item.id] = { ...currentEntry, quantity: nextQuantity }
       return next
+    })
+  }
+
+  const updateItemNote = (id: string, note: string) => {
+    setCart((current) => {
+      const currentEntry = current[id]
+      if (!currentEntry) return current
+      return {
+        ...current,
+        [id]: {
+          ...currentEntry,
+          note,
+        },
+      }
     })
   }
 
@@ -61,11 +98,15 @@ function App() {
       `כתובת / איסוף: ${address || 'לא צוין'}`,
       '',
       'הזמנה:',
-      ...cartItems.map(({ item, quantity }) => `${quantity}x #${item.number} ${item.name} — ${formatShekel((item.price ?? 0) * quantity)}`),
+      ...cartItems.flatMap(({ item, quantity, note }) => [
+        `${quantity}x #${item.number} ${item.name} — ${formatPrice(item, quantity)}`,
+        `תיאור: ${item.description}`,
+        `הערות לפריט: ${note || 'אין'}`,
+        '',
+      ]),
+      `סה״כ לפריטים עם מחיר: ${formatShekel(total)}`,
       '',
-      `סה״כ: ${formatShekel(total)}`,
-      '',
-      `הערות: ${notes || 'אין'}`,
+      `הערות כלליות: ${notes || 'אין'}`,
     ]
 
     return lines.join('\n')
@@ -88,7 +129,12 @@ function App() {
       <section id="top" className="hero-section">
         <div className="hero-copy">
           <p className="eyebrow">סושי משפחתי · טרי · בהזמנה מראש</p>
-          <h1>סושי מודרני בטעם ביתי, נשלח אליכם ב-WhatsApp.</h1>
+          <h1>
+            <span className="hero-title-line">סושי מודרני</span>{' '}
+            <span className="hero-title-line">בטעם ביתי,</span>{' '}
+            <span className="hero-title-line">נשלח אליכם</span>{' '}
+            <span className="hero-title-line">ב-WhatsApp.</span>
+          </h1>
           <p className="hero-text">
             בוחרים רולים, ממלאים פרטים ושולחים את סיכום ההזמנה ישירות ל-{business.name}. התשלום והאישור מתבצעים מול העסק ב-WhatsApp.
           </p>
@@ -114,17 +160,52 @@ function App() {
       </section>
 
       <section className="notice-card">
-        <strong>חשוב לדעת:</strong> {business.note} להזמנות מיוחדות כמו מגש מסיבה — הוסיפו הערה ונחזור אליכם.
+        <strong>חשוב לדעת:</strong> {business.note} להזמנות מיוחדות כמו מגש מסיבה ושתייה — המחיר הסופי יאושר מול העסק ב-WhatsApp.
+      </section>
+
+      <section className="how-section" aria-label="איך מזמינים">
+        <article className="step-card">
+          <span>1</span>
+          <strong>בוחרים מהתפריט</strong>
+          <p>אפשר לסנן לפי קטגוריה, לחפש סלמון / טונה / מטוגן ולהוסיף פריטים לסל.</p>
+        </article>
+        <article className="step-card">
+          <span>2</span>
+          <strong>ממלאים פרטים</strong>
+          <p>שם, כתובת למשלוח או איסוף, והערות כמו סלמון בתנור או בלי שומשום.</p>
+        </article>
+        <article className="step-card">
+          <span>3</span>
+          <strong>שולחים ב-WhatsApp</strong>
+          <p>ההזמנה נשלחת לעסק, והעסק חוזר אליכם לאישור ותשלום.</p>
+        </article>
       </section>
 
       <section id="menu" className="menu-section">
         <div className="section-heading">
-          <p className="eyebrow">התפריט</p>
-          <h2>בחרו קטגוריה והוסיפו לסל</h2>
+          <div>
+            <p className="eyebrow">התפריט</p>
+            <h2>
+              <span className="menu-title-line">בחרו קטגוריה</span>{' '}
+              <span className="menu-title-line">והוסיפו לסל</span>
+            </h2>
+          </div>
+          <span className="results-count">{filteredItems.length} פריטים</span>
+        </div>
+
+        <div className="menu-controls">
+          <label className="search-box" aria-label="חיפוש בתפריט">
+            <Search size={19} />
+            <input
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="חיפוש: סלמון, טונה, מטוגן, שתייה..."
+            />
+          </label>
         </div>
 
         <nav className="category-tabs" aria-label="קטגוריות תפריט">
-          {categories.map((category) => (
+          {categoryOptions.map((category) => (
             <button
               className={category === activeCategory ? 'active' : ''}
               key={category}
@@ -136,18 +217,26 @@ function App() {
           ))}
         </nav>
 
-        <div className="menu-grid">
-          {menuItems
-            .filter((item) => item.category === activeCategory)
-            .map((item) => {
-              const quantity = cart[item.id] ?? 0
+        {filteredItems.length === 0 ? (
+          <div className="no-results">
+            <strong>לא מצאנו פריטים מתאימים</strong>
+            <span>נסו חיפוש אחר או בחרו ״הכל״.</span>
+          </div>
+        ) : (
+          <div className="menu-grid">
+            {filteredItems.map((item) => {
+              const quantity = cart[item.id]?.quantity ?? 0
               return (
                 <article className="menu-card" key={item.id}>
+                  <div className="menu-image">
+                    {item.image ? <img src={item.image} alt={item.name} /> : <span aria-hidden="true">{getItemEmoji(item)}</span>}
+                    {!item.image && <small>תמונה בקרוב</small>}
+                  </div>
                   <div className="roll-number">#{item.number}</div>
                   <div className="menu-card-content">
                     <div className="menu-card-header">
                       <h3>{item.name}</h3>
-                      <span className="price">{item.price === null ? 'לפי בחירה' : formatShekel(item.price)}</span>
+                      <span className="price">{formatPrice(item)}</span>
                     </div>
                     <p>{item.description}</p>
                     <div className="badges">
@@ -163,14 +252,15 @@ function App() {
                       </div>
                     ) : (
                       <button className="add-button" onClick={() => updateCart(item, 1)} type="button">
-                        {item.price === null ? 'בירור מחיר' : 'הוספה לסל'}
+                        הוספה לסל
                       </button>
                     )}
                   </div>
                 </article>
               )
             })}
-        </div>
+          </div>
+        )}
       </section>
 
       <footer className="footer">
@@ -197,14 +287,32 @@ function App() {
             <p className="empty-cart">הסל ריק כרגע. בחרו רולים מהתפריט והם יופיעו כאן.</p>
           ) : (
             <div className="cart-lines">
-              {cartItems.map(({ item, quantity }) => (
-                <div className="cart-line" key={item.id}>
-                  <div>
-                    <strong>{quantity}x {item.name}</strong>
-                    <span>#{item.number} · {formatShekel((item.price ?? 0) * quantity)}</span>
+              {cartItems.map(({ item, quantity, note }) => (
+                <article className="cart-line" key={item.id}>
+                  <div className="cart-line-top">
+                    <div className="cart-item-text">
+                      <strong>{quantity}x {item.name}</strong>
+                      <span>#{item.number} · {formatPrice(item, quantity)}</span>
+                      <small>{item.description}</small>
+                    </div>
+                    <button onClick={() => removeItem(item.id)} type="button" aria-label="מחיקה"><Trash2 size={16} /></button>
                   </div>
-                  <button onClick={() => removeItem(item.id)} type="button" aria-label="מחיקה"><Trash2 size={16} /></button>
-                </div>
+
+                  <div className="cart-item-controls" aria-label={`כמות עבור ${item.name}`}>
+                    <button onClick={() => updateCart(item, -1)} type="button" aria-label="הורדת כמות"><Minus size={15} /></button>
+                    <strong>{quantity}</strong>
+                    <button onClick={() => updateCart(item, 1)} type="button" aria-label="הוספת כמות"><Plus size={15} /></button>
+                  </div>
+
+                  <label className="item-note-label">
+                    <span>הוסף הערות</span>
+                    <textarea
+                      value={note}
+                      onChange={(event) => updateItemNote(item.id, event.target.value)}
+                      placeholder="למשל: סלמון בתנור, בלי שומשום, רטבים בצד..."
+                    />
+                  </label>
+                </article>
               ))}
             </div>
           )}
@@ -218,12 +326,12 @@ function App() {
             <input value={address} onChange={(event) => setAddress(event.target.value)} placeholder="לדוגמה: קיבוץ גבולות / משלוח ל..." />
           </label>
           <label>
-            הערות להזמנה
-            <textarea value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="סלמון בתנור, בלי שומשום, רטבים נוספים..." />
+            הערות כלליות להזמנה
+            <textarea value={notes} onChange={(event) => setNotes(event.target.value)} placeholder="הערה כללית לכל ההזמנה..." />
           </label>
 
           <div className="cart-total">
-            <span>סה״כ</span>
+            <span>סה״כ לפריטים עם מחיר</span>
             <strong>{formatShekel(total)}</strong>
           </div>
 

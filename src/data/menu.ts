@@ -6,6 +6,7 @@ export type MenuItem = {
   description: string
   price: number | null
   badges?: string[]
+  image?: string
 }
 
 export const business = {
@@ -24,6 +25,7 @@ export const categories = [
   'רולים עם ירקות',
   'מגש מסיבה',
   'מנות ילדים',
+  'שתייה',
 ] as const
 
 export const menuItems: MenuItem[] = [
@@ -73,4 +75,8 @@ export const menuItems: MenuItem[] = [
   { id: 'roll-40', number: 40, category: categories[4], name: 'מגש מסיבה', description: 'מידה L: שבעה רולים · מידה XL: תשעה רולים. קומבינציית הרולים לפי בחירת הלקוח.', price: null, badges: ['בהתאמה אישית'] },
   { id: 'roll-41', number: 41, category: categories[5], name: 'מנת ילדים פרגית בטמפורה', description: 'פרגית בטמפורה עם צ׳יפס או אורז לבחירה.', price: 35 },
   { id: 'roll-42', number: 42, category: categories[5], name: 'מנת ילדים שניצל עוף', description: 'שניצל עוף עם צ׳יפס או אורז לבחירה.', price: 35 },
+  { id: 'drink-43', number: 43, category: categories[6], name: 'מים מינרליים', description: 'שתייה קרה להשלמת ההזמנה. מחיר סופי יאושר ב-WhatsApp.', price: null, badges: ['שתייה'] },
+  { id: 'drink-44', number: 44, category: categories[6], name: 'קולה', description: 'בקבוק / פחית לפי זמינות העסק. מחיר סופי יאושר ב-WhatsApp.', price: null, badges: ['שתייה'] },
+  { id: 'drink-45', number: 45, category: categories[6], name: 'קולה זירו', description: 'בקבוק / פחית לפי זמינות העסק. מחיר סופי יאושר ב-WhatsApp.', price: null, badges: ['שתייה'] },
+  { id: 'drink-46', number: 46, category: categories[6], name: 'ספרייט', description: 'בקבוק / פחית לפי זמינות העסק. מחיר סופי יאושר ב-WhatsApp.', price: null, badges: ['שתייה'] },
 ]
