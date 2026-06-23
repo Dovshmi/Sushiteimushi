@@ -23,6 +23,31 @@ const getItemEmoji = (item: MenuItem) => {
   return '🍣'
 }
 
+const hasAnyTerm = (text: string, terms: string[]) => terms.some((term) => text.includes(term))
+
+const getItemBadges = (item: MenuItem) => {
+  const text = `${item.name} ${item.description} ${item.category}`
+  const badges = (item.badges ?? []).filter((badge) => !['8 יח׳', 'דג טרי', 'מטוגן', 'צמחוני', 'טבעוני'].includes(badge))
+
+  if (item.category === 'שתייה' || item.category === 'מגש מסיבה') return badges
+
+  const hasFish = hasAnyTerm(text, ['סלמון', 'טונה', 'דג', 'דגים'])
+  const hasMeat = hasAnyTerm(text, ['עוף', 'שניצל', 'פרגית'])
+  const hasEgg = hasAnyTerm(text, ['ביצה', 'ביצים', 'אומלט'])
+  const hasDairy = hasAnyTerm(text, ['קרים-צ׳יז', 'צ׳יז', 'גבינה'])
+  const isFried = hasAnyTerm(text, ['מטוגן', 'טמפורה'])
+
+  if (hasFish) badges.push('דג טרי')
+  if (isFried) badges.push('מטוגן')
+
+  const hasAnimalProduct = hasFish || hasMeat || hasEgg || hasDairy
+  if (!hasFish && !hasMeat && (hasEgg || hasDairy || item.category.includes('ירקות'))) {
+    badges.push(hasAnimalProduct ? 'צמחוני' : 'טבעוני')
+  }
+
+  return badges
+}
+
 function App() {
   const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORY)
   const [cart, setCart] = useState<Cart>({})
@@ -48,7 +73,7 @@ function App() {
 
     return menuItems.filter((item) => {
       const matchesCategory = activeCategory === ALL_CATEGORY || item.category === activeCategory
-      const searchableText = `${item.name} ${item.description} ${item.category} ${(item.badges ?? []).join(' ')}`.toLowerCase()
+      const searchableText = `${item.name} ${item.description} ${item.category} ${getItemBadges(item).join(' ')}`.toLowerCase()
       const matchesSearch = normalizedSearch.length === 0 || searchableText.includes(normalizedSearch)
       return matchesCategory && matchesSearch
     })
@@ -226,6 +251,7 @@ function App() {
           <div className="menu-grid">
             {filteredItems.map((item) => {
               const quantity = cart[item.id]?.quantity ?? 0
+              const itemBadges = getItemBadges(item)
               return (
                 <article className="menu-card" key={item.id}>
                   <div className="menu-image">
@@ -239,9 +265,11 @@ function App() {
                       <span className="price">{formatPrice(item)}</span>
                     </div>
                     <p>{item.description}</p>
-                    <div className="badges">
-                      {(item.badges ?? ['8 יח׳']).map((badge) => <span key={badge}>{badge}</span>)}
-                    </div>
+                    {itemBadges.length > 0 && (
+                      <div className="badges">
+                        {itemBadges.map((badge) => <span key={badge}>{badge}</span>)}
+                      </div>
+                    )}
                   </div>
                   <div className="card-actions">
                     {quantity > 0 ? (
