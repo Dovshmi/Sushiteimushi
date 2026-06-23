@@ -271,13 +271,13 @@ function App() {
             <span>יש משלוחים</span>
           </div>
         </div>
-        <div className="hero-art" aria-hidden="true">
+        <a className="hero-art" href="/menu-7b.pdf" target="_blank" rel="noreferrer" aria-label="פתח את התפריט כקובץ PDF" >
           <img className="hero-combined-image" src="/images/design/black-red/hero-combined-user.png" alt="" />
           <div className="floating-card">
             <strong>8 יח׳ בכל רול</strong>
             <span>מוגש עם וואסאבי, סויה, טריאקי, ספייסי וג׳ינג׳ר</span>
           </div>
-        </div>
+        </a>
       </section>
 
       <section className="how-section" aria-label="איך מזמינים">

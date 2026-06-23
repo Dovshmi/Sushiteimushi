@@ -939,6 +939,10 @@ a {
     overflow-wrap: anywhere;
   }
 
+  .hero-copy h1::after {
+    display: none;
+  }
+
   .hero-title-line {
     display: block;
   }
@@ -2978,6 +2982,20 @@ body::before {
   .brand-mark {
     width: 46px !important;
     height: 46px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .brand-mark img {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 50% !important;
+    transform: scale(1.12);
   }
 }
 
@@ -3009,4 +3027,11 @@ body::before {
 .copyright-credit a:hover {
   color: #fff;
   border-bottom-color: #fff;
+}
+
+@media (max-width: 640px) {
+  .hero-copy h1::after {
+    content: none !important;
+    display: none !important;
+  }
 }
