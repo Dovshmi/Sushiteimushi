@@ -1,4 +1,5 @@
 import { Minus, Plus, Search, Send, ShoppingBag, Trash2 } from 'lucide-react'
+import { createPortal } from 'react-dom'
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
 import './App.css'
 import { business, categories, menuItems, type MenuItem } from './data/menu'
@@ -63,7 +64,11 @@ function App() {
   const [openItemNotes, setOpenItemNotes] = useState<Record<string, boolean>>({})
   const [searchTerm, setSearchTerm] = useState('')
   const [areMenuControlsPinned, setAreMenuControlsPinned] = useState(false)
+  const [isAddressSuggestionsOpen, setIsAddressSuggestionsOpen] = useState(false)
+  const [addressDropdownRect, setAddressDropdownRect] = useState<{ top: number; left: number; width: number } | null>(null)
   const menuControlsRef = useRef<HTMLDivElement>(null)
+  const addressInputRef = useRef<HTMLInputElement>(null)
+  const cartPanelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const getPinOffset = () => (window.innerWidth <= 640 ? 8 : 14)
@@ -113,6 +118,33 @@ function App() {
   const trimmedNotes = notes.trim()
   const addressSuggestions = useMemo(() => getSuggestedDeliveryLocations(address, 8), [address])
   const isOrderReady = cartItems.length > 0 && trimmedCustomerName.length > 0 && trimmedAddress.length > 0
+
+  useEffect(() => {
+    if (!isAddressSuggestionsOpen) return
+
+    const updateDropdownRect = () => {
+      const input = addressInputRef.current
+      if (!input) return
+
+      const rect = input.getBoundingClientRect()
+      setAddressDropdownRect({
+        top: rect.bottom + 8,
+        left: rect.left,
+        width: rect.width,
+      })
+    }
+
+    updateDropdownRect()
+    window.addEventListener('resize', updateDropdownRect)
+    window.addEventListener('scroll', updateDropdownRect, true)
+    cartPanelRef.current?.addEventListener('scroll', updateDropdownRect, { passive: true })
+
+    return () => {
+      window.removeEventListener('resize', updateDropdownRect)
+      window.removeEventListener('scroll', updateDropdownRect, true)
+      cartPanelRef.current?.removeEventListener('scroll', updateDropdownRect)
+    }
+  }, [isAddressSuggestionsOpen, address])
 
   const updateCart = (item: MenuItem, delta: number) => {
     const currentQuantity = cart[item.id]?.quantity ?? 0
@@ -213,6 +245,23 @@ function App() {
   }
 
   const whatsappUrl = `https://wa.me/${business.whatsappPhone}?text=${encodeURIComponent(buildWhatsappMessage())}`
+
+  const handleAddressSelect = (locationName: string) => {
+    setAddress(locationName)
+    setValidationMessage('')
+    setIsAddressSuggestionsOpen(false)
+  }
+
+  const handleAddressBlur = () => {
+    window.setTimeout(() => {
+      setAddress((current) => autoCorrectDeliveryAddress(current))
+      setIsAddressSuggestionsOpen(false)
+    }, 120)
+  }
+
+  const handleAddressFocus = () => {
+    setIsAddressSuggestionsOpen(true)
+  }
 
   const handleWhatsappClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (cartItems.length === 0) {
@@ -410,7 +459,7 @@ function App() {
       )}
 
       <aside className={`cart-drawer ${isCartOpen ? 'open' : ''}`} aria-hidden={!isCartOpen}>
-        <div className="cart-panel">
+        <div className="cart-panel" ref={cartPanelRef}>
           <div className="cart-header">
             <div>
               <p className="eyebrow">סיכום הזמנה</p>
@@ -483,25 +532,50 @@ function App() {
               placeholder="לדוגמה: דוב"
             />
           </label>
-          <label>
+          <label className="address-field">
             כתובת למשלוח / הערת איסוף
-            <input
-              value={address}
-              onChange={(event) => {
-                setAddress(event.target.value)
-                setValidationMessage('')
-              }}
-              onBlur={() => {
-                setAddress((current) => autoCorrectDeliveryAddress(current))
-              }}
-              list="delivery-location-suggestions"
-              placeholder="לדוגמה: קיבוץ גבולות / משלוח ל..."
-            />
-            <datalist id="delivery-location-suggestions">
-              {addressSuggestions.map((location) => (
-                <option key={location.name} value={location.name} />
-              ))}
-            </datalist>
+            <div className="address-autocomplete">
+              <input
+                ref={addressInputRef}
+                value={address}
+                onChange={(event) => {
+                  setAddress(event.target.value)
+                  setValidationMessage('')
+                  setIsAddressSuggestionsOpen(true)
+                }}
+                onFocus={handleAddressFocus}
+                onBlur={handleAddressBlur}
+                placeholder="לדוגמה: קיבוץ גבולות / משלוח ל..."
+                autoComplete="off"
+              />
+              {isAddressSuggestionsOpen && addressSuggestions.length > 0 && addressDropdownRect && document.body && createPortal(
+                <div
+                  className="address-suggestions-dropdown"
+                  role="listbox"
+                  aria-label="הצעות לכתובת"
+                  style={{
+                    top: addressDropdownRect.top,
+                    left: addressDropdownRect.left,
+                    width: addressDropdownRect.width,
+                  }}
+                >
+                  {addressSuggestions.map((location) => (
+                    <button
+                      key={location.name}
+                      type="button"
+                      className="address-suggestion-option"
+                      onMouseDown={(event) => {
+                        event.preventDefault()
+                        handleAddressSelect(location.name)
+                      }}
+                    >
+                      {location.name}
+                    </button>
+                  ))}
+                </div>,
+                document.body,
+              )}
+            </div>
           </label>
           <label>
             הערות כלליות להזמנה

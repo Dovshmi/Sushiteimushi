@@ -3035,3 +3035,43 @@ body::before {
     display: none !important;
   }
 }
+
+.address-field {
+  overflow: visible;
+}
+
+.address-autocomplete {
+  position: relative;
+}
+
+.address-suggestions-dropdown {
+  position: fixed;
+  z-index: 9999;
+  display: grid;
+  max-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid rgba(255, 247, 239, 0.14);
+  border-radius: 16px;
+  background: #120f0d;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+  padding: 6px;
+  gap: 4px;
+}
+
+.address-suggestion-option {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 12px;
+  text-align: right;
+  color: #fff7ef;
+  background: transparent;
+  cursor: pointer;
+}
+
+.address-suggestion-option:hover,
+.address-suggestion-option:focus-visible {
+  background: rgba(233, 88, 81, 0.16);
+  outline: none;
+}
