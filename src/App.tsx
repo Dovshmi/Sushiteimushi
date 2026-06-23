@@ -1,5 +1,5 @@
 import { Minus, Plus, Search, Send, ShoppingBag, Trash2 } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
 import './App.css'
 import { business, categories, menuItems, type MenuItem } from './data/menu'
 
@@ -55,6 +55,8 @@ function App() {
   const [customerName, setCustomerName] = useState('')
   const [address, setAddress] = useState('')
   const [notes, setNotes] = useState('')
+  const [validationMessage, setValidationMessage] = useState('')
+  const [openItemNotes, setOpenItemNotes] = useState<Record<string, boolean>>({})
   const [searchTerm, setSearchTerm] = useState('')
   const [areMenuControlsPinned, setAreMenuControlsPinned] = useState(false)
   const menuControlsRef = useRef<HTMLDivElement>(null)
@@ -102,8 +104,15 @@ function App() {
 
   const cartCount = cartItems.reduce((sum, entry) => sum + entry.quantity, 0)
   const total = cartItems.reduce((sum, entry) => sum + (entry.item.price ?? 0) * entry.quantity, 0)
+  const trimmedCustomerName = customerName.trim()
+  const trimmedAddress = address.trim()
+  const trimmedNotes = notes.trim()
+  const isOrderReady = cartItems.length > 0 && trimmedCustomerName.length > 0 && trimmedAddress.length > 0
 
   const updateCart = (item: MenuItem, delta: number) => {
+    const currentQuantity = cart[item.id]?.quantity ?? 0
+    const shouldCloseNote = Math.max(currentQuantity + delta, 0) === 0
+
     setCart((current) => {
       const currentEntry = current[item.id] ?? { quantity: 0, note: '' }
       const nextQuantity = Math.max(currentEntry.quantity + delta, 0)
@@ -112,6 +121,14 @@ function App() {
       else next[item.id] = { ...currentEntry, quantity: nextQuantity }
       return next
     })
+
+    if (shouldCloseNote) {
+      setOpenItemNotes((current) => {
+        const next = { ...current }
+        delete next[item.id]
+        return next
+      })
+    }
   }
 
   const updateItemNote = (id: string, note: string) => {
@@ -134,31 +151,91 @@ function App() {
       delete next[id]
       return next
     })
+
+    setOpenItemNotes((current) => {
+      const next = { ...current }
+      delete next[id]
+      return next
+    })
+  }
+
+  const toggleItemNote = (id: string) => {
+    setOpenItemNotes((current) => {
+      const isOpen = Boolean(current[id])
+
+      if (isOpen) {
+        updateItemNote(id, '')
+        const next = { ...current }
+        delete next[id]
+        return next
+      }
+
+      return {
+        ...current,
+        [id]: true,
+      }
+    })
   }
 
   const buildWhatsappMessage = () => {
+    const itemLines = cartItems.flatMap(({ item, quantity, note }, index) => {
+      const trimmedNote = note.trim()
+      const lines = [`${index + 1}. #${item.number} ${item.name} x${quantity} — ${formatPrice(item, quantity)}`]
+
+      if (trimmedNote) lines.push(`   הערה: ${trimmedNote}`)
+
+      return lines
+    })
+
     const lines = [
-      `שלום ${business.name}, אני רוצה לבצע הזמנה 🍣`,
+      `שלום ${business.name} 🍣`,
+      'אני רוצה לבצע הזמנה.',
       '',
-      `שם: ${customerName || 'לא צוין'}`,
-      `כתובת / איסוף: ${address || 'לא צוין'}`,
+      `שם: ${trimmedCustomerName}`,
+      `כתובת / איסוף: ${trimmedAddress}`,
       '',
-      'הזמנה:',
-      ...cartItems.flatMap(({ item, quantity, note }) => [
-        `${quantity}x #${item.number} ${item.name} — ${formatPrice(item, quantity)}`,
-        `תיאור: ${item.description}`,
-        `הערות לפריט: ${note || 'אין'}`,
-        '',
-      ]),
+      'פריטים:',
+      ...itemLines,
+      '',
       `סה״כ לפריטים עם מחיר: ${formatShekel(total)}`,
-      '',
-      `הערות כלליות: ${notes || 'אין'}`,
     ]
+
+    if (trimmedNotes) {
+      lines.push('', 'הערות כלליות:', trimmedNotes)
+    }
 
     return lines.join('\n')
   }
 
   const whatsappUrl = `https://wa.me/${business.whatsappPhone}?text=${encodeURIComponent(buildWhatsappMessage())}`
+
+  const handleWhatsappClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (cartItems.length === 0) {
+      event.preventDefault()
+      setValidationMessage('הסל ריק כרגע. הוסיפו פריטים לפני שליחת הזמנה.')
+      return
+    }
+
+    if (!trimmedCustomerName && !trimmedAddress) {
+      event.preventDefault()
+      setValidationMessage('כדי לשלוח הזמנה, מלאו שם וכתובת למשלוח או הערת איסוף.')
+      return
+    }
+
+    if (!trimmedCustomerName) {
+      event.preventDefault()
+      setValidationMessage('כדי לשלוח הזמנה, מלאו שם מלא.')
+      return
+    }
+
+    if (!trimmedAddress) {
+      event.preventDefault()
+      setValidationMessage('כדי לשלוח הזמנה, מלאו כתובת למשלוח או הערת איסוף.')
+      return
+    }
+
+    setValidationMessage('')
+  }
 
   return (
     <main className="site-shell">
@@ -333,43 +410,76 @@ function App() {
             <p className="empty-cart">הסל ריק כרגע. בחרו רולים מהתפריט והם יופיעו כאן.</p>
           ) : (
             <div className="cart-lines">
-              {cartItems.map(({ item, quantity, note }) => (
-                <article className="cart-line" key={item.id}>
-                  <div className="cart-line-top">
-                    <div className="cart-item-text">
-                      <strong>{quantity}x {item.name}</strong>
-                      <span>#{item.number} · {formatPrice(item, quantity)}</span>
-                      <small>{item.description}</small>
+              {cartItems.map(({ item, quantity, note }) => {
+                const isNoteOpen = Boolean(openItemNotes[item.id])
+
+                return (
+                  <article className="cart-line" key={item.id}>
+                    <div className="cart-line-top">
+                      <div className="cart-item-text">
+                        <strong>{quantity}x {item.name}</strong>
+                        <span>#{item.number} · {formatPrice(item, quantity)}</span>
+                        <small>{item.description}</small>
+                      </div>
+                      <button onClick={() => removeItem(item.id)} type="button" aria-label="מחיקה"><Trash2 size={16} /></button>
                     </div>
-                    <button onClick={() => removeItem(item.id)} type="button" aria-label="מחיקה"><Trash2 size={16} /></button>
-                  </div>
 
-                  <div className="cart-item-controls" aria-label={`כמות עבור ${item.name}`}>
-                    <button onClick={() => updateCart(item, -1)} type="button" aria-label="הורדת כמות"><Minus size={15} /></button>
-                    <strong>{quantity}</strong>
-                    <button onClick={() => updateCart(item, 1)} type="button" aria-label="הוספת כמות"><Plus size={15} /></button>
-                  </div>
+                    <div className="cart-item-controls" aria-label={`כמות עבור ${item.name}`}>
+                      <button onClick={() => updateCart(item, -1)} type="button" aria-label="הורדת כמות"><Minus size={15} /></button>
+                      <strong>{quantity}</strong>
+                      <button onClick={() => updateCart(item, 1)} type="button" aria-label="הוספת כמות"><Plus size={15} /></button>
+                    </div>
 
-                  <label className="item-note-label">
-                    <span>הוסף הערות</span>
-                    <textarea
-                      value={note}
-                      onChange={(event) => updateItemNote(item.id, event.target.value)}
-                      placeholder="למשל: סלמון בתנור, בלי שומשום, רטבים בצד..."
-                    />
-                  </label>
-                </article>
-              ))}
+                    <div className="item-note-block">
+                      <button
+                        className={`item-note-toggle ${isNoteOpen ? 'open' : ''}`}
+                        onClick={() => toggleItemNote(item.id)}
+                        type="button"
+                        aria-expanded={isNoteOpen}
+                        aria-controls={`note-${item.id}`}
+                      >
+                        <span className="note-toggle-icon" aria-hidden="true"><Plus size={14} /></span>
+                        <span>הוסף הערות</span>
+                      </button>
+
+                      {isNoteOpen && (
+                        <label className="item-note-label" id={`note-${item.id}`}>
+                          <span className="sr-only">הערות עבור {item.name}</span>
+                          <textarea
+                            value={note}
+                            onChange={(event) => updateItemNote(item.id, event.target.value)}
+                            placeholder="למשל: סלמון בתנור, בלי שומשום, רטבים בצד..."
+                          />
+                        </label>
+                      )}
+                    </div>
+                  </article>
+                )
+              })}
             </div>
           )}
 
           <label>
             שם מלא
-            <input value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="לדוגמה: דוב" />
+            <input
+              value={customerName}
+              onChange={(event) => {
+                setCustomerName(event.target.value)
+                setValidationMessage('')
+              }}
+              placeholder="לדוגמה: דוב"
+            />
           </label>
           <label>
             כתובת למשלוח / הערת איסוף
-            <input value={address} onChange={(event) => setAddress(event.target.value)} placeholder="לדוגמה: קיבוץ גבולות / משלוח ל..." />
+            <input
+              value={address}
+              onChange={(event) => {
+                setAddress(event.target.value)
+                setValidationMessage('')
+              }}
+              placeholder="לדוגמה: קיבוץ גבולות / משלוח ל..."
+            />
           </label>
           <label>
             הערות כלליות להזמנה
@@ -381,7 +491,9 @@ function App() {
             <strong>{formatShekel(total)}</strong>
           </div>
 
-          <a className={`whatsapp-button ${cartItems.length === 0 ? 'disabled' : ''}`} href={cartItems.length ? whatsappUrl : undefined} target="_blank" rel="noreferrer">
+          {validationMessage && <p className="validation-message" role="alert">{validationMessage}</p>}
+
+          <a className={`whatsapp-button ${!isOrderReady ? 'disabled' : ''}`} href={cartItems.length ? whatsappUrl : undefined} onClick={handleWhatsappClick} target="_blank" rel="noreferrer">
             <Send size={18} /> שליחה ב-WhatsApp
           </a>
           <small>{business.note}</small>

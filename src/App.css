@@ -728,7 +728,52 @@ a {
   text-align: center;
 }
 
+.item-note-block {
+  display: block;
+  width: 100%;
+  gap: 8px;
+  direction: rtl;
+  text-align: right;
+}
+
+.cart-line .item-note-toggle {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: auto;
+  max-width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: rgba(255, 247, 239, 0.62);
+  direction: rtl;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.note-toggle-icon {
+  display: grid;
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 247, 239, 0.08);
+  color: #fff7ef;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.item-note-toggle.open .note-toggle-icon {
+  transform: rotate(45deg);
+  background: rgba(233, 88, 81, 0.18);
+  color: #ff8b83;
+}
+
 .item-note-label {
+  margin-top: 8px;
+  direction: rtl;
   gap: 6px !important;
   color: rgba(255, 247, 239, 0.62) !important;
   font-weight: 700 !important;
@@ -749,6 +794,15 @@ a {
 
 .item-note-label textarea::placeholder {
   color: rgba(255, 247, 239, 0.36);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .cart-panel label {
@@ -789,8 +843,18 @@ a {
 }
 
 .whatsapp-button.disabled {
-  pointer-events: none;
   opacity: 0.48;
+}
+
+.validation-message {
+  margin: -2px 0 0;
+  border: 1px solid rgba(233, 88, 81, 0.34);
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: rgba(233, 88, 81, 0.1);
+  color: #ffd8d3;
+  font-weight: 800;
+  line-height: 1.45;
 }
 
 @media (max-width: 960px) {
