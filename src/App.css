@@ -1345,7 +1345,7 @@ a {
 
 .menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
   position: fixed;
-  top: 88px;
+  top: 14px;
   right: 50%;
   z-index: 31;
   width: min(1180px, calc(100% - 28px));
@@ -1384,7 +1384,7 @@ a {
   }
 
   .menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
-    top: 62px;
+    top: 8px;
     right: 0;
     left: 0;
     width: 100%;
@@ -1468,7 +1468,7 @@ a {
 
 @media (max-width: 640px) {
   .menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
-    top: 58px;
+    top: 8px;
     right: 8px;
     left: 8px;
     width: auto;

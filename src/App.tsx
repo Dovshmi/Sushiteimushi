@@ -60,7 +60,7 @@ function App() {
   const menuControlsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const getPinOffset = () => (window.innerWidth <= 640 ? 62 : 88)
+    const getPinOffset = () => (window.innerWidth <= 640 ? 8 : 14)
 
     const updatePinnedState = () => {
       const controls = menuControlsRef.current

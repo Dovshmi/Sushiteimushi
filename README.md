@@ -26,6 +26,7 @@ The project focuses on **zero-friction UX**, ensuring that customers in Kibbutz 
 ### 🍱 Seamless Ordering Experience
 - **Precision Cart**: Manage quantities and specific requirements (e.g., *"Salmon in oven"*) per item.
 - **Intelligent Filtering**: Rapidly navigate through categories or use the global search to find specific ingredients.
+- **Near-Top Sticky Discovery**: Search and category controls stay in their original menu position until customers scroll past them, then pin close to the top of the viewport for fast browsing.
 - **WhatsApp Bridge**: Converts a complex cart state into a perfectly structured, readable order message for the business owner.
 
 ### 🧠 Engineering Decisions
@@ -99,11 +100,13 @@ The project employs a strict CI pipeline to ensure production stability. Every p
 | **v4** | 📱 Mobile-First | Comprehensive UX overhaul for smartphone users. |
 | **v5** | 🖼️ Visuals | Integrated professional WebP product imagery. |
 | **v6** | 🎯 Final Polish | PDF-driven menu sync, phone updates, and smart dietary badges. |
+| **v7** | 📌 Sticky Discovery | Refined the floating search/category bar so it pins much closer to the top only after users scroll past it. |
 
 ## 📌 Developer's Manual
 
 - **Image Preservation**: The assets in `public/images/menu/` are manually curated. **Do not** overwrite or regenerate them without explicit approval.
 - **Menu Updates**: Always sync `src/data/menu.ts` with the latest approved PDF menu.
+- **Sticky Controls**: The menu search/filter bar uses React scroll state plus `.menu-sticky-controls.is-pinned`; keep its normal-flow placement unchanged and adjust only the pinned offsets when tuning scroll UX.
 - **Performance**: Keep the CSS lean. Avoid adding heavy frameworks to maintain the site's current lightning-fast load speed.
 
 ---
