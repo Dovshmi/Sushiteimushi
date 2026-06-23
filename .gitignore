@@ -7,19 +7,49 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependencies
+node_modules/
+
+# Production/build output
+dist/
+dist-ssr/
+build/
+
+# Environment files
+.env
+.env.*
+!.env.example
 *.local
+
+# Vite / TypeScript cache
+.vite/
+*.tsbuildinfo
+
+# Test and coverage output
+coverage/
+test-results/
+playwright-report/
+
+# Local previews and generated source image dumps
 preview-home.png
 preview-*.png
 sushi_food_images_1_39/
 
+# Hosting/provider local folders
+.vercel/
+.netlify/
+
+# Temporary local agent/dev files
+.hermes/
+*.tmp
+*.temp
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
