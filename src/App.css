@@ -2326,3 +2326,525 @@ body::after {
   }
 }
 
+/* New reference asset pass: higher quality logo/leaves and card styling closer to the supplied mockups. */
+.site-shell::before {
+  top: 106px;
+  left: 24px;
+  width: 226px;
+  height: 302px;
+  background-image: url('/images/design/cream-leaves-left.png');
+  opacity: 0.92;
+}
+
+.site-shell::after {
+  top: 438px;
+  right: 38px;
+  width: 142px;
+  height: 220px;
+  background-image: url('/images/design/cream-leaves-right.png');
+  opacity: 0.74;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 0;
+  width: 250px;
+  height: 276px;
+  pointer-events: none;
+  background: url('/images/design/cream-leaves-lower-left.png') left bottom / contain no-repeat;
+  filter: drop-shadow(0 18px 18px rgba(46, 69, 38, 0.16));
+  opacity: 0.9;
+}
+
+.hero-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-art img {
+  width: min(488px, 92%);
+  transform: translateY(-6px);
+  filter: drop-shadow(0 32px 28px rgba(63, 58, 42, 0.18));
+}
+
+.menu-card {
+  border-color: rgba(216, 201, 165, 0.8) !important;
+  border-radius: 30px !important;
+  background: linear-gradient(180deg, rgba(255, 251, 239, 0.94), rgba(251, 246, 235, 0.96)) !important;
+  box-shadow: 0 18px 40px rgba(78, 62, 35, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.76) !important;
+}
+
+.menu-card h3 {
+  text-align: center;
+  color: #294632 !important;
+  font-size: clamp(1.35rem, 1.8vw, 1.72rem);
+}
+
+.menu-card p {
+  text-align: center;
+  font-size: 1.02rem;
+}
+
+.menu-image {
+  min-height: 238px;
+  margin: 2px 0 22px !important;
+  border-color: transparent !important;
+  border-radius: 26px !important;
+  background: linear-gradient(180deg, rgba(255, 248, 232, 0.3), rgba(255, 248, 232, 0.06)) !important;
+  box-shadow: none !important;
+}
+
+.menu-image img {
+  width: 94%;
+  height: 94%;
+  filter: drop-shadow(0 18px 24px rgba(65, 55, 34, 0.18)) !important;
+}
+
+.add-button,
+.secondary-button {
+  border-color: rgba(86, 111, 74, 0.52) !important;
+  color: #2f5a3a !important;
+}
+
+.primary-button,
+.whatsapp-button,
+.floating-cart {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 15px 30px rgba(47, 90, 58, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+@media (max-width: 960px) {
+  .site-shell::before {
+    top: 150px;
+    left: 8px;
+    width: 148px;
+    height: 198px;
+  }
+
+  .site-shell::after {
+    top: 450px;
+    right: 4px;
+    width: 92px;
+    height: 142px;
+  }
+
+  .hero-section::before {
+    left: 0;
+    bottom: 180px;
+    width: 140px;
+    height: 156px;
+  }
+
+  .hero-art img {
+    width: min(330px, 90%);
+    transform: none;
+  }
+
+  .menu-image {
+    min-height: 190px;
+  }
+}
+
+/* Polish pass from review: integrate filters, move leaves behind plate, and fix cart-note text contrast. */
+.site-shell::after {
+  top: 468px;
+  right: auto;
+  left: 24px;
+  width: 220px;
+  height: 298px;
+  transform: rotate(-6deg);
+  opacity: 0.64;
+}
+
+.hero-section::before {
+  left: 36px;
+  bottom: 26px;
+  width: 285px;
+  height: 315px;
+  opacity: 0.82;
+}
+
+.hero-art {
+  z-index: 2;
+}
+
+.hero-copy {
+  z-index: 3;
+}
+
+.menu-section {
+  isolation: isolate;
+}
+
+.menu-sticky-controls-inner,
+.menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
+  display: grid;
+  gap: 14px;
+  padding: 18px 22px !important;
+  border: 1px solid rgba(216, 201, 165, 0.68) !important;
+  border-radius: 28px !important;
+  background: rgba(251, 247, 239, 0.9) !important;
+  box-shadow: 0 16px 36px rgba(74, 58, 30, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.74) !important;
+}
+
+.menu-controls,
+.menu-sticky-controls .menu-controls,
+.menu-sticky-controls.is-pinned .menu-controls {
+  grid-template-columns: 1fr !important;
+  align-items: end;
+  justify-content: end !important;
+  justify-items: end;
+  gap: 8px;
+}
+
+.menu-controls::before {
+  content: 'שדה חיפוש';
+  order: -1;
+  justify-self: end;
+  color: #2f5a3a;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.search-box,
+.menu-sticky-controls.is-pinned .search-box {
+  justify-self: end;
+  width: min(620px, 100%);
+  background: rgba(255, 251, 239, 0.98) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78) !important;
+}
+
+.category-tabs,
+.menu-sticky-controls .category-tabs,
+.menu-sticky-controls.is-pinned .category-tabs {
+  align-items: center;
+  gap: 12px !important;
+  padding: 0 !important;
+}
+
+.category-tabs::before {
+  content: 'קטגוריות';
+  color: #2f5a3a;
+  font-weight: 900;
+  margin-inline-end: 2px;
+}
+
+.category-tabs button,
+.menu-sticky-controls.is-pinned .category-tabs button {
+  min-height: 44px;
+  box-shadow: none !important;
+}
+
+.cart-panel,
+.cart-panel *:not(.whatsapp-button):not(.primary-button),
+.cart-panel input,
+.cart-panel textarea,
+.cart-panel input::placeholder,
+.cart-panel textarea::placeholder,
+.item-note-toggle,
+.item-note-toggle span,
+.item-note-label,
+.item-note-label textarea {
+  color: #223527 !important;
+}
+
+.cart-panel input::placeholder,
+.cart-panel textarea::placeholder {
+  color: rgba(34, 53, 39, 0.48) !important;
+}
+
+@media (max-width: 960px) {
+  .site-shell::after {
+    top: 460px;
+    left: 6px;
+    width: 126px;
+    height: 170px;
+  }
+
+  .hero-section::before {
+    left: 6px;
+    bottom: 160px;
+    width: 150px;
+    height: 165px;
+  }
+
+  .menu-controls,
+  .menu-sticky-controls .menu-controls,
+  .menu-sticky-controls.is-pinned .menu-controls {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+  }
+
+  .menu-controls::before,
+  .category-tabs::before {
+    display: none;
+  }
+
+  .menu-sticky-controls-inner,
+  .menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
+    padding: 12px !important;
+    border-radius: 22px !important;
+  }
+}
+
+/* Background reference pass: warmer paper base, leaf-backed hero, and subtle Japanese wave texture. */
+body {
+  background:
+    radial-gradient(circle at 50% 2%, rgba(255, 255, 255, 0.88), transparent 34rem),
+    radial-gradient(circle at 8% 16%, rgba(105, 132, 87, 0.08), transparent 26rem),
+    radial-gradient(circle at 92% 82%, rgba(225, 196, 146, 0.12), transparent 34rem),
+    linear-gradient(180deg, #fffaf0 0%, #fbf4e6 48%, #fff8ea 100%) !important;
+}
+
+body::before {
+  opacity: 1 !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.84), transparent 34rem),
+    url('/images/design/cream-leaves-left.png') left 9.5rem top 7.8rem / 210px 280px no-repeat,
+    url('/images/design/cream-leaves-lower-left.png') left 1.2rem top 30rem / 250px 278px no-repeat,
+    url('/images/design/cream-leaves-right.png') right 2.2rem top 18rem / 138px 214px no-repeat,
+    repeating-radial-gradient(circle at 50% 100%, transparent 0 18px, rgba(219, 191, 140, 0.18) 19px 21px, transparent 22px 39px) bottom -24px center / 82px 52px repeat-x;
+  filter: none !important;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: auto 0 0;
+  z-index: -1;
+  height: 150px;
+  pointer-events: none;
+  background:
+    repeating-radial-gradient(circle at 50% 100%, transparent 0 20px, rgba(226, 199, 151, 0.2) 21px 23px, transparent 24px 43px) bottom -20px left / 88px 54px repeat-x,
+    repeating-radial-gradient(circle at 50% 100%, transparent 0 17px, rgba(226, 199, 151, 0.14) 18px 20px, transparent 21px 38px) bottom 10px left 44px / 88px 54px repeat-x;
+}
+
+.site-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.82), rgba(255, 247, 232, 0.62)) padding-box,
+    linear-gradient(180deg, rgba(224, 200, 153, 0.46), rgba(224, 200, 153, 0.12)) border-box !important;
+  border: 1px solid rgba(224, 200, 153, 0.24);
+  box-shadow: 0 24px 80px rgba(87, 69, 38, 0.08);
+}
+
+.hero-section {
+  min-height: 620px;
+  align-items: center;
+}
+
+.site-shell::before {
+  top: 118px;
+  left: 30px;
+  width: 238px;
+  height: 318px;
+  opacity: 0.78;
+  filter: drop-shadow(0 18px 17px rgba(58, 75, 46, 0.14));
+}
+
+.site-shell::after {
+  top: 508px;
+  left: 18px;
+  width: 238px;
+  height: 324px;
+  opacity: 0.46;
+  filter: drop-shadow(0 18px 17px rgba(58, 75, 46, 0.12));
+}
+
+.hero-section::before {
+  left: 42px;
+  bottom: 38px;
+  width: 310px;
+  height: 342px;
+  opacity: 0.62;
+}
+
+.hero-art img {
+  width: min(520px, 96%);
+}
+
+.info-section,
+.menu-section,
+.checkout-section {
+  position: relative;
+}
+
+.info-section::after,
+.checkout-section::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -34px;
+  height: 90px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background:
+    repeating-radial-gradient(circle at 50% 100%, transparent 0 17px, rgba(226, 199, 151, 0.2) 18px 20px, transparent 21px 38px) bottom / 84px 54px repeat-x;
+}
+
+.info-section > *,
+.checkout-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 960px) {
+  body::before {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.84), transparent 28rem),
+      url('/images/design/cream-leaves-left.png') left -2rem top 17rem / 128px 172px no-repeat,
+      url('/images/design/cream-leaves-right.png') right -1.8rem top 29rem / 112px 174px no-repeat,
+      repeating-radial-gradient(circle at 50% 100%, transparent 0 16px, rgba(219, 191, 140, 0.18) 17px 19px, transparent 20px 35px) bottom -18px center / 74px 48px repeat-x;
+  }
+
+  .site-shell {
+    box-shadow: 0 18px 50px rgba(87, 69, 38, 0.08);
+  }
+
+  .hero-section {
+    min-height: auto;
+  }
+
+  .site-shell::before {
+    top: 238px;
+    left: -18px;
+    width: 120px;
+    height: 160px;
+    opacity: 0.62;
+  }
+
+  .site-shell::after {
+    top: 500px;
+    left: auto;
+    right: -20px;
+    width: 108px;
+    height: 168px;
+    opacity: 0.46;
+  }
+
+  .hero-section::before {
+    left: -8px;
+    bottom: 170px;
+    width: 130px;
+    height: 146px;
+    opacity: 0.46;
+  }
+}
+
+/* Review fix: remove lower leaves under logo, keep top leaves visible around the symbol, and right-align search. */
+body::before {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.84), transparent 34rem),
+    url('/images/design/cream-leaves-left.png') left 4.7rem top 7.4rem / 250px 334px no-repeat,
+    url('/images/design/cream-leaves-right.png') right 2.2rem top 18rem / 138px 214px no-repeat,
+    repeating-radial-gradient(circle at 50% 100%, transparent 0 18px, rgba(219, 191, 140, 0.18) 19px 21px, transparent 22px 39px) bottom -24px center / 82px 52px repeat-x;
+}
+
+.site-shell::before {
+  top: 100px;
+  left: 22px;
+  width: 255px;
+  height: 342px;
+  opacity: 0.82;
+  z-index: 1;
+}
+
+.site-shell::after,
+.hero-section::before {
+  display: none !important;
+}
+
+.hero-art {
+  z-index: 2;
+}
+
+.hero-art img {
+  position: relative;
+  z-index: 2;
+}
+
+.menu-sticky-controls-inner,
+.menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
+  direction: rtl;
+  text-align: right;
+}
+
+.menu-controls,
+.menu-sticky-controls .menu-controls,
+.menu-sticky-controls.is-pinned .menu-controls {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 8px;
+  width: 100%;
+}
+
+.menu-controls::before {
+  justify-self: auto !important;
+  align-self: flex-start !important;
+  width: min(620px, 100%);
+  text-align: right;
+}
+
+.search-box,
+.menu-sticky-controls.is-pinned .search-box {
+  align-self: flex-start !important;
+  justify-self: auto !important;
+  width: min(620px, 100%) !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  margin-inline: 0 auto !important;
+  text-align: right;
+}
+
+.search-box input {
+  text-align: right;
+  direction: rtl;
+}
+
+.category-tabs,
+.menu-sticky-controls .category-tabs,
+.menu-sticky-controls.is-pinned .category-tabs {
+  width: 100%;
+  justify-content: flex-start !important;
+  padding-inline: 0 !important;
+  overflow: visible !important;
+}
+
+@media (max-width: 960px) {
+  body::before {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.84), transparent 28rem),
+      url('/images/design/cream-leaves-left.png') left -1.5rem top 17rem / 130px 174px no-repeat,
+      url('/images/design/cream-leaves-right.png') right -1.8rem top 29rem / 112px 174px no-repeat,
+      repeating-radial-gradient(circle at 50% 100%, transparent 0 16px, rgba(219, 191, 140, 0.18) 17px 19px, transparent 20px 35px) bottom -18px center / 74px 48px repeat-x;
+  }
+
+  .site-shell::before {
+    top: 214px;
+    left: -20px;
+    width: 128px;
+    height: 172px;
+    opacity: 0.72;
+  }
+
+  .menu-controls::before,
+  .search-box,
+  .menu-sticky-controls.is-pinned .search-box {
+    width: 100%;
+  }
+
+  .category-tabs,
+  .menu-sticky-controls .category-tabs,
+  .menu-sticky-controls.is-pinned .category-tabs {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    padding-inline: 0 !important;
+  }
+}
+

@@ -392,9 +392,11 @@ function App() {
         <span>{business.orderHours}</span>
       </footer>
 
-      <button className="floating-cart" onClick={() => setIsCartOpen(true)} type="button">
-        <ShoppingBag size={20} /> סל · {cartCount} · {formatShekel(total)}
-      </button>
+      {cartCount > 0 && (
+        <button className="floating-cart" onClick={() => setIsCartOpen(true)} type="button">
+          <ShoppingBag size={20} /> סל · {cartCount} · {formatShekel(total)}
+        </button>
+      )}
 
       <aside className={`cart-drawer ${isCartOpen ? 'open' : ''}`} aria-hidden={!isCartOpen}>
         <div className="cart-panel">
