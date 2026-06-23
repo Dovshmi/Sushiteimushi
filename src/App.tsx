@@ -2,6 +2,10 @@ import { Minus, Plus, Search, Send, ShoppingBag, Trash2 } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
 import './App.css'
 import { business, categories, menuItems, type MenuItem } from './data/menu'
+import {
+  autoCorrectDeliveryAddress,
+  getSuggestedDeliveryLocations,
+} from './data/deliveryLocations'
 
 type CartEntry = {
   quantity: number
@@ -107,6 +111,7 @@ function App() {
   const trimmedCustomerName = customerName.trim()
   const trimmedAddress = address.trim()
   const trimmedNotes = notes.trim()
+  const addressSuggestions = useMemo(() => getSuggestedDeliveryLocations(address, 8), [address])
   const isOrderReady = cartItems.length > 0 && trimmedCustomerName.length > 0 && trimmedAddress.length > 0
 
   const updateCart = (item: MenuItem, delta: number) => {
@@ -486,8 +491,17 @@ function App() {
                 setAddress(event.target.value)
                 setValidationMessage('')
               }}
+              onBlur={() => {
+                setAddress((current) => autoCorrectDeliveryAddress(current))
+              }}
+              list="delivery-location-suggestions"
               placeholder="לדוגמה: קיבוץ גבולות / משלוח ל..."
             />
+            <datalist id="delivery-location-suggestions">
+              {addressSuggestions.map((location) => (
+                <option key={location.name} value={location.name} />
+              ))}
+            </datalist>
           </label>
           <label>
             הערות כלליות להזמנה
