@@ -1565,3 +1565,1448 @@ a {
     white-space: nowrap;
   }
 }
+
+/* Black/red style guide implementation overrides. */
+:root {
+  --br-red: #e94b4b;
+  --br-red-2: #ff6b62;
+  --br-bg: #0f0f0f;
+  --br-dark: #1a1a1a;
+  --br-card: #2a2a2a;
+  --br-border: #3d3d3d;
+  --br-cream: #f5f5f1;
+  --br-sage: #a3b18a;
+  --br-olive: #6b705c;
+  color: var(--br-cream);
+  background: var(--br-bg);
+}
+
+html,
+body {
+  background: var(--br-bg);
+}
+
+body::before {
+  background:
+    radial-gradient(circle at 22% 10%, rgba(233, 75, 75, 0.18), transparent 28rem),
+    radial-gradient(circle at 88% 18%, rgba(163, 177, 138, 0.13), transparent 30rem),
+    linear-gradient(rgba(15, 15, 15, 0.78), rgba(15, 15, 15, 0.92)),
+    linear-gradient(transparent, transparent),
+    #0f0f0f;
+}
+
+.site-shell {
+  width: min(1220px, calc(100% - 28px));
+}
+
+.topbar {
+  border: 1px solid rgba(61, 61, 61, 0.95);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(26, 26, 26, 0.88), rgba(15, 15, 15, 0.88));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(245, 245, 241, 0.04);
+}
+
+.brand {
+  color: var(--br-cream);
+  font-size: 1.03rem;
+}
+
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border: 1px solid var(--br-red);
+  background: transparent;
+  box-shadow: 0 0 0 6px rgba(233, 75, 75, 0.06), 0 10px 28px rgba(0,0,0,.42);
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.phone-link {
+  border: 1px solid rgba(233, 75, 75, 0.92);
+  background: rgba(233, 75, 75, 0.08);
+  color: #ff6b62;
+  box-shadow: inset 0 0 22px rgba(233, 75, 75, 0.05);
+}
+
+.eyebrow {
+  color: var(--br-red);
+}
+
+.hero-section {
+  grid-template-columns: 0.94fr 1.06fr;
+  gap: 34px;
+  padding: 58px 0 34px;
+}
+
+.hero-copy h1 {
+  color: var(--br-cream);
+  text-shadow: 0 8px 28px rgba(0,0,0,.4);
+}
+
+.hero-copy h1::after {
+  content: '';
+  display: inline-block;
+  width: 0.16em;
+  height: 0.16em;
+  margin-inline-start: 0.12em;
+  border-radius: 999px;
+  background: var(--br-red);
+  vertical-align: baseline;
+}
+
+.hero-text {
+  color: rgba(245, 245, 241, 0.78);
+}
+
+.primary-button,
+.whatsapp-button,
+.floating-cart {
+  background: linear-gradient(180deg, #f16363 0%, #e94b4b 100%);
+  color: var(--br-cream);
+  box-shadow: 0 12px 32px rgba(233, 75, 75, 0.25), inset 0 1px 0 rgba(245,245,241,.18);
+}
+
+.secondary-button,
+.add-button {
+  border: 1px solid rgba(61, 61, 61, 0.95);
+  background: rgba(15, 15, 15, 0.58);
+  color: var(--br-cream);
+  box-shadow: inset 0 1px 0 rgba(245,245,241,.04);
+}
+
+.primary-button:hover,
+.secondary-button:hover,
+.add-button:hover,
+.whatsapp-button:hover,
+.floating-cart:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.info-grid span,
+.results-count {
+  border-color: rgba(61, 61, 61, 0.95);
+  background: rgba(26, 26, 26, 0.72);
+  color: rgba(245, 245, 241, 0.78);
+}
+
+.hero-art {
+  display: grid;
+  place-items: center;
+  min-height: 365px;
+  border: 1px solid rgba(61, 61, 61, 0.98);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 30% 42%, rgba(233, 75, 75, 0.24), transparent 25%),
+    linear-gradient(90deg, rgba(0,0,0,.12), rgba(0,0,0,.25)),
+    linear-gradient(transparent, transparent),
+    #101010;
+  box-shadow: inset 0 1px 0 rgba(245,245,241,.04), 0 28px 90px rgba(0,0,0,.42);
+}
+
+.hero-art::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 118px;
+  height: 92px;
+  background: radial-gradient(ellipse at center, rgba(163,177,138,.54), rgba(107,112,92,.24) 42%, transparent 70%);
+  filter: blur(3px);
+  opacity: .7;
+  transform: rotate(-18deg);
+}
+
+.hero-sauce {
+  position: absolute;
+  left: 34px;
+  bottom: 24px;
+  width: 84px;
+  height: 84px;
+  border: 1px solid rgba(233,75,75,.45);
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(0,0,0,.9) 0 44%, rgba(233,75,75,.38) 45% 47%, transparent 48%);
+  box-shadow: 0 16px 32px rgba(0,0,0,.45);
+}
+
+.hero-sauce::before,
+.hero-sauce::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  width: 4px;
+  height: 220px;
+  border-radius: 999px;
+  background: linear-gradient(#8a5133, #1f120d);
+  transform-origin: bottom center;
+  box-shadow: 0 10px 26px rgba(0,0,0,.55);
+}
+
+.hero-sauce::before { left: 58px; transform: rotate(-16deg); }
+.hero-sauce::after { left: 82px; transform: rotate(-8deg); }
+
+.hero-logo-plate {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 2;
+  width: min(48%, 315px) !important;
+  height: auto !important;
+  max-width: 315px !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 28px 34px rgba(0,0,0,.62));
+}
+
+.floating-card {
+  right: auto;
+  left: 28px;
+  bottom: 28px;
+  width: min(380px, calc(100% - 56px));
+  border-color: rgba(61, 61, 61, 0.96);
+  background: rgba(15, 15, 15, 0.78);
+}
+
+.notice-card,
+.step-card,
+.menu-card,
+.cart-panel,
+.cart-line,
+.no-results {
+  border-color: rgba(61, 61, 61, 0.96);
+  background: linear-gradient(180deg, rgba(42, 42, 42, 0.70), rgba(20, 20, 20, 0.82));
+  box-shadow: inset 0 1px 0 rgba(245,245,241,.04), 0 18px 56px rgba(0,0,0,.24);
+}
+
+.how-section {
+  gap: 18px;
+}
+
+.step-card {
+  min-height: 205px;
+  text-align: center;
+}
+
+.step-card span {
+  margin-inline: auto;
+  background: var(--br-red);
+  color: var(--br-bg);
+}
+
+.step-card strong,
+.menu-card h3,
+.section-heading h2,
+.cart-header h2,
+.no-results strong {
+  color: var(--br-cream);
+}
+
+.step-card p,
+.menu-card p,
+.empty-cart,
+.cart-panel small {
+  color: rgba(245, 245, 241, 0.68);
+}
+
+.search-box,
+.cart-panel input,
+.cart-panel textarea,
+.item-note-label textarea {
+  border-color: rgba(61, 61, 61, 0.96) !important;
+  background: rgba(15, 15, 15, 0.68) !important;
+  color: var(--br-cream) !important;
+}
+
+.search-box {
+  color: var(--br-red);
+}
+
+.search-box input::placeholder,
+.cart-panel input::placeholder,
+.cart-panel textarea::placeholder,
+.item-note-label textarea::placeholder {
+  color: rgba(245, 245, 241, 0.38) !important;
+}
+
+.category-tabs button {
+  border-color: rgba(61, 61, 61, 0.96);
+  background: rgba(26, 26, 26, 0.78);
+  color: rgba(245,245,241,.78);
+}
+
+.category-tabs button.active {
+  border-color: transparent;
+  background: linear-gradient(180deg, #f16363, #e94b4b);
+  color: var(--br-cream);
+}
+
+.menu-card {
+  min-height: 365px;
+  border-radius: 22px;
+  padding: 18px;
+}
+
+.menu-card::before {
+  background: radial-gradient(circle, rgba(233,75,75,.18), transparent 68%);
+}
+
+.menu-image {
+  min-height: 165px;
+  border-color: rgba(61, 61, 61, 0.96);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 52% 45%, rgba(233, 75, 75, 0.18), transparent 34%),
+    linear-gradient(rgba(10,10,10,.58), rgba(10,10,10,.78)),
+    linear-gradient(transparent, transparent),
+    #111;
+}
+
+.menu-image::before {
+  background: linear-gradient(120deg, rgba(245, 245, 241, 0.05), transparent 36%);
+}
+
+.menu-image::after {
+  width: 72%;
+  height: 48%;
+  background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,.34), rgba(0,0,0,.08) 54%, transparent 72%);
+}
+
+.roll-number {
+  top: 28px;
+  right: 28px;
+  background: rgba(15, 15, 15, 0.66);
+  color: var(--br-red-2);
+  border: 1px solid rgba(233,75,75,.32);
+}
+
+.price {
+  color: var(--br-red);
+}
+
+.badges span {
+  border-color: rgba(163, 177, 138, 0.35);
+  background: rgba(163, 177, 138, 0.1);
+  color: #dce8cf;
+}
+
+.quantity-control,
+.cart-item-controls,
+.close-button,
+.note-toggle-icon {
+  background: rgba(245, 245, 241, 0.07);
+}
+
+.cart-panel {
+  background: #111;
+}
+
+.drawer-backdrop {
+  background: rgba(0,0,0,.72);
+}
+
+.menu-sticky-controls-inner {
+  background: linear-gradient(180deg, rgba(15,15,15,.98), rgba(15,15,15,.90) 78%, transparent);
+}
+
+.menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
+  border-color: rgba(61,61,61,.96);
+  background:
+    radial-gradient(circle at 92% 0%, rgba(233,75,75,.16), transparent 32%),
+    linear-gradient(180deg, rgba(26,26,26,.92), rgba(15,15,15,.88));
+}
+
+.footer {
+  border-color: rgba(61,61,61,.96);
+}
+
+@media (max-width: 960px) {
+  .hero-section { grid-template-columns: 1fr; }
+  .hero-art { min-height: 340px; }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    border-radius: 18px;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-section {
+    padding-top: 22px;
+  }
+
+  .hero-art {
+    min-height: 250px;
+    border-radius: 20px;
+  }
+
+  .hero-logo-plate {
+    width: min(56%, 190px) !important;
+  }
+
+  .hero-sauce {
+    left: 18px;
+    bottom: 14px;
+    width: 58px;
+    height: 58px;
+  }
+
+  .hero-sauce::before,
+  .hero-sauce::after {
+    height: 150px;
+    bottom: 23px;
+  }
+
+  .floating-card {
+    display: none;
+  }
+
+  .step-card {
+    min-height: auto;
+    text-align: right;
+  }
+
+  .step-card span {
+    margin-inline: 0;
+  }
+
+  .menu-card {
+    border-radius: 18px;
+  }
+
+  .menu-image {
+    min-height: 122px;
+    border-radius: 16px;
+  }
+}
+
+
+
+/* Final cleanup after screenshot QA: remove source-panel labels and square logo crop edges. */
+.hero-logo-plate,
+.brand-mark img {
+  border-radius: 999px;
+  clip-path: circle(49% at 50% 50%);
+}
+
+.hero-logo-plate {
+  width: min(42%, 285px) !important;
+  background: transparent;
+}
+
+.hero-art {
+  background-position: center;
+}
+
+@media (max-width: 640px) {
+  .hero-logo-plate {
+    width: min(52%, 180px) !important;
+  }
+}
+
+
+/* The supplied black/red hero reference keeps the image clean; avoid an extra overlay card. */
+.floating-card {
+  display: none;
+}
+
+
+/* Reference correction: make the first screen one integrated dark hero banner, not a small logo image card. */
+.hero-section {
+  position: relative;
+  isolation: isolate;
+  grid-template-columns: minmax(380px, 0.95fr) minmax(420px, 1.05fr);
+  align-items: center;
+  margin: 54px 0 46px;
+  padding: 54px 64px 58px;
+  overflow: hidden;
+  border: 1px solid rgba(61, 61, 61, 0.98);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 25% 44%, rgba(233, 75, 75, 0.21), transparent 20rem),
+    radial-gradient(circle at 92% 10%, rgba(163, 177, 138, 0.12), transparent 14rem),
+    linear-gradient(90deg, rgba(15, 15, 15, 0.90), rgba(15, 15, 15, 0.82)),
+    linear-gradient(transparent, transparent),
+    #0f0f0f;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(245, 245, 241, 0.05);
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(245, 245, 241, 0.04), transparent 18%),
+    radial-gradient(circle at 10% 92%, rgba(0, 0, 0, 0.55), transparent 18rem);
+}
+
+.hero-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 4%;
+  width: 190px;
+  height: 145px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(163, 177, 138, 0.50), rgba(107, 112, 92, 0.22) 42%, transparent 72%);
+  filter: blur(2px);
+  opacity: 0.75;
+  transform: rotate(-18deg);
+}
+
+.hero-copy {
+  order: 2;
+  text-align: right;
+}
+
+.hero-copy h1 {
+  max-width: 520px;
+  margin-inline-start: auto;
+  font-size: clamp(3.2rem, 6.4vw, 6rem);
+}
+
+.hero-text {
+  max-width: 560px;
+  margin-inline-start: auto;
+}
+
+.hero-actions,
+.info-grid {
+  justify-content: flex-start;
+}
+
+.hero-art {
+  order: 1;
+  min-height: 430px;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hero-art::before {
+  display: none;
+}
+
+.hero-logo-plate {
+  width: min(72%, 420px) !important;
+  max-width: 420px !important;
+  filter: drop-shadow(0 34px 36px rgba(0, 0, 0, 0.66));
+}
+
+.hero-sauce {
+  left: 6%;
+  bottom: 8%;
+  width: 104px;
+  height: 104px;
+}
+
+.hero-sauce::before,
+.hero-sauce::after {
+  height: 310px;
+}
+
+@media (max-width: 960px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 28px;
+    padding: 34px 26px 30px;
+    background:
+      radial-gradient(circle at 50% 35%, rgba(233, 75, 75, 0.18), transparent 16rem),
+      radial-gradient(circle at 95% 10%, rgba(163, 177, 138, 0.12), transparent 12rem),
+      linear-gradient(rgba(15, 15, 15, 0.86), rgba(15, 15, 15, 0.90)),
+      linear-gradient(transparent, transparent),
+      #0f0f0f;
+  }
+
+  .hero-copy {
+    order: 2;
+    text-align: center;
+  }
+
+  .hero-copy h1,
+  .hero-text {
+    margin-inline: auto;
+  }
+
+  .hero-actions,
+  .info-grid {
+    justify-content: center;
+  }
+
+  .hero-art {
+    order: 1;
+    min-height: 300px;
+  }
+
+  .hero-logo-plate {
+    width: min(58%, 260px) !important;
+  }
+
+  .hero-sauce {
+    left: 5%;
+    bottom: 8%;
+    width: 76px;
+    height: 76px;
+  }
+
+  .hero-sauce::before,
+  .hero-sauce::after {
+    height: 210px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    margin: 22px 0 28px;
+    padding: 22px 18px 24px;
+    border-radius: 28px;
+  }
+
+  .hero-art {
+    min-height: 225px;
+  }
+
+  .hero-logo-plate {
+    width: min(62%, 190px) !important;
+  }
+
+  .hero-sauce {
+    left: 2px;
+    bottom: 6px;
+    width: 58px;
+    height: 58px;
+  }
+
+  .hero-sauce::before,
+  .hero-sauce::after {
+    height: 155px;
+  }
+}
+
+
+/* Keep the integrated hero physically aligned like the reference: image on the left, text on the right. */
+.hero-section {
+  direction: ltr;
+  grid-template-areas: 'art copy';
+}
+
+.hero-copy {
+  grid-area: copy;
+  direction: rtl;
+}
+
+.hero-art {
+  grid-area: art;
+  direction: rtl;
+}
+
+@media (max-width: 960px) {
+  .hero-section {
+    grid-template-areas:
+      'art'
+      'copy';
+  }
+}
+
+
+/* User correction: desktop hero logo should be clear and chopsticks should sit beside it, not behind it.
+   Mobile hero is intentionally left as-is below 960px. */
+@media (min-width: 961px) {
+  .hero-art {
+    min-height: 420px;
+    justify-items: center;
+    padding-left: 108px;
+  }
+
+  .hero-logo-plate {
+    z-index: 4;
+    width: min(62%, 360px) !important;
+    max-width: 360px !important;
+    transform: translateX(34px);
+    filter:
+      drop-shadow(0 34px 34px rgba(0, 0, 0, 0.68))
+      drop-shadow(0 0 1px rgba(245, 245, 241, 0.28));
+  }
+
+  .hero-sauce {
+    z-index: 2;
+    left: 34px;
+    bottom: 42px;
+    width: 96px;
+    height: 96px;
+  }
+
+  .hero-sauce::before,
+  .hero-sauce::after {
+    bottom: 54px;
+    height: 275px;
+  }
+
+  .hero-sauce::before {
+    left: 28px;
+    transform: rotate(-12deg);
+  }
+
+  .hero-sauce::after {
+    left: 62px;
+    transform: rotate(-7deg);
+  }
+}
+
+/* User correction: compact mobile menu item cards so product photos and image wells stay proportional. */
+@media (max-width: 640px) {
+  .menu-card {
+    grid-template-columns: minmax(0, 1fr) 86px;
+    grid-template-areas:
+      "content image"
+      "actions image";
+    gap: 10px;
+    padding: 12px;
+    min-height: 0;
+    align-items: stretch;
+  }
+
+  .menu-image {
+    width: 86px;
+    min-height: 118px;
+    height: 100%;
+    max-height: 142px;
+    align-self: stretch;
+    border-radius: 16px;
+  }
+
+  .menu-image img {
+    width: 86%;
+    height: 86%;
+    max-width: 82px;
+    max-height: 104px;
+  }
+
+  .roll-number {
+    top: 18px;
+    right: 18px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.72rem;
+  }
+
+  .menu-card h3 {
+    font-size: 1.06rem;
+  }
+
+  .menu-card p {
+    -webkit-line-clamp: 2;
+  }
+
+  .badges {
+    margin-top: 7px;
+  }
+
+  .card-actions {
+    align-self: end;
+  }
+
+  .add-button,
+  .quantity-control {
+    min-height: 36px;
+  }
+}
+
+
+/* Keep mobile product thumbnails on the physical right in RTL, matching the user's screenshot, while staying compact. */
+@media (max-width: 640px) {
+  .menu-card {
+    grid-template-areas:
+      "image content"
+      "image actions";
+  }
+}
+
+
+/* User correction: mobile product text should be on the physical right, image on the left.
+   Keep the same product card/image-well footprint, but enlarge the product photo slightly. */
+@media (max-width: 640px) {
+  .menu-card {
+    direction: ltr;
+    grid-template-columns: 92px minmax(0, 1fr);
+    grid-template-areas:
+      "image content"
+      "image actions";
+  }
+
+  .menu-card-content,
+  .card-actions {
+    direction: rtl;
+    text-align: right;
+  }
+
+  .menu-card-header {
+    flex-direction: row;
+    align-items: start;
+  }
+
+  .menu-image {
+    width: 92px;
+    max-height: 142px;
+  }
+
+  .menu-image img {
+    width: 98%;
+    height: 98%;
+    max-width: 94px;
+    max-height: 118px;
+  }
+
+  .roll-number {
+    left: 18px;
+    right: auto;
+  }
+}
+
+/* User correction: desktop hero logo larger again, with chopsticks closer beside it. */
+@media (min-width: 961px) {
+  .hero-art {
+    padding-left: 82px;
+  }
+
+  .hero-logo-plate {
+    width: min(70%, 405px) !important;
+    max-width: 405px !important;
+    transform: translateX(48px);
+  }
+
+  .hero-sauce {
+    left: 58px;
+    bottom: 42px;
+    width: 98px;
+    height: 98px;
+  }
+
+  .hero-sauce::before,
+  .hero-sauce::after {
+    bottom: 54px;
+    height: 286px;
+  }
+
+  .hero-sauce::before {
+    left: 38px;
+    transform: rotate(-12deg);
+  }
+
+  .hero-sauce::after {
+    left: 72px;
+    transform: rotate(-7deg);
+  }
+}
+
+
+/* Use the two user-supplied hero images directly: clean texture panel + clear plate logo. */
+.hero-logo-plate,
+.brand-mark img {
+  clip-path: none;
+}
+
+.hero-logo-plate {
+  border-radius: 0;
+}
+
+.brand-mark img {
+  border-radius: 999px;
+}
+
+
+/* Size correction for the new user-supplied plate image. */
+@media (min-width: 961px) {
+  .hero-logo-plate {
+    width: min(82%, 510px) !important;
+    max-width: 510px !important;
+    transform: translateX(58px);
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-logo-plate {
+    width: min(68%, 285px) !important;
+    max-width: 285px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-logo-plate {
+    width: min(70%, 245px) !important;
+    max-width: 245px !important;
+  }
+}
+
+
+/* User correction: use only the supplied background's real chopsticks; remove the CSS/fake chopsticks overlay.
+   Keep logo centered in the visual area and leave the rest of the layout in place. */
+.hero-sauce {
+  display: none !important;
+}
+
+@media (min-width: 961px) {
+  .hero-art {
+    padding-left: 0;
+    justify-items: center;
+  }
+
+  .hero-logo-plate {
+    transform: none;
+    width: min(78%, 485px) !important;
+    max-width: 485px !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-logo-plate {
+    transform: none;
+  }
+}
+
+
+/* User correction: make the supplied hero background more visible and tune logo placement. */
+@media (min-width: 961px) {
+  .hero-section {
+    background:
+      radial-gradient(circle at 25% 44%, rgba(233, 75, 75, 0.18), transparent 20rem),
+      radial-gradient(circle at 92% 10%, rgba(163, 177, 138, 0.10), transparent 14rem),
+      linear-gradient(90deg, rgba(15, 15, 15, 0.42), rgba(15, 15, 15, 0.72)),
+      linear-gradient(transparent, transparent),
+      #0f0f0f;
+  }
+
+  .hero-logo-plate {
+    transform: translateX(82px);
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-section {
+    background:
+      radial-gradient(circle at 50% 35%, rgba(233, 75, 75, 0.16), transparent 16rem),
+      radial-gradient(circle at 95% 10%, rgba(163, 177, 138, 0.10), transparent 12rem),
+      linear-gradient(rgba(15, 15, 15, 0.50), rgba(15, 15, 15, 0.74)),
+      linear-gradient(transparent, transparent),
+      #0f0f0f;
+  }
+
+  .hero-art {
+    justify-items: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .hero-logo-plate {
+    display: block;
+    margin-inline: auto;
+    transform: none !important;
+  }
+}
+
+
+/* Stronger supplied background visibility + true centered logo on phone.
+   Keep the background image present; only reduce the dark overlay. */
+@media (min-width: 961px) {
+  .hero-section {
+    background:
+      radial-gradient(circle at 25% 44%, rgba(233, 75, 75, 0.10), transparent 20rem),
+      radial-gradient(circle at 92% 10%, rgba(163, 177, 138, 0.08), transparent 14rem),
+      linear-gradient(90deg, rgba(15, 15, 15, 0.14) 0%, rgba(15, 15, 15, 0.30) 44%, rgba(15, 15, 15, 0.78) 64%, rgba(15, 15, 15, 0.90) 100%),
+      linear-gradient(transparent, transparent),
+      #0f0f0f;
+  }
+
+  .hero-art {
+    justify-items: end;
+    padding-left: 0;
+    padding-right: 78px;
+  }
+
+  .hero-logo-plate {
+    transform: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-section {
+    background:
+      radial-gradient(circle at 50% 35%, rgba(233, 75, 75, 0.08), transparent 16rem),
+      radial-gradient(circle at 95% 10%, rgba(163, 177, 138, 0.08), transparent 12rem),
+      linear-gradient(rgba(15, 15, 15, 0.22), rgba(15, 15, 15, 0.58)),
+      linear-gradient(transparent, transparent),
+      #0f0f0f;
+  }
+
+  .hero-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-inline: 0;
+  }
+
+  .hero-logo-plate {
+    margin: 0 auto;
+    transform: translateX(0) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    background:
+      radial-gradient(circle at 50% 33%, rgba(233, 75, 75, 0.06), transparent 14rem),
+      radial-gradient(circle at 92% 8%, rgba(163, 177, 138, 0.08), transparent 10rem),
+      linear-gradient(rgba(15, 15, 15, 0.18), rgba(15, 15, 15, 0.52)),
+      linear-gradient(transparent, transparent),
+      #0f0f0f;
+  }
+
+  .hero-art {
+    min-height: 230px;
+  }
+}
+
+
+/* RESET hero visual per user request: use the two supplied images exactly.
+   No generated/fake chopsticks, no blended logo background, logo centered and large. */
+.hero-sauce,
+.hero-art::before {
+  display: none !important;
+}
+
+.hero-section {
+  background:
+    linear-gradient(90deg, rgba(15, 15, 15, 0.86), rgba(15, 15, 15, 0.94)),
+    #0f0f0f !important;
+}
+
+.hero-art {
+  display: grid !important;
+  place-items: center !important;
+  justify-items: center !important;
+  align-items: center !important;
+  min-height: 420px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(61, 61, 61, 0.98) !important;
+  border-radius: 26px !important;
+  background:
+    linear-gradient(rgba(15, 15, 15, 0.08), rgba(15, 15, 15, 0.16)),
+    linear-gradient(transparent, transparent);
+  box-shadow: inset 0 1px 0 rgba(245, 245, 241, 0.05), 0 28px 90px rgba(0, 0, 0, 0.32) !important;
+}
+
+.hero-logo-plate {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 3 !important;
+  display: block !important;
+  width: min(62%, 440px) !important;
+  height: auto !important;
+  max-width: 440px !important;
+  margin: 0 auto !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  opacity: 1 !important;
+  clip-path: none !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.55)) !important;
+}
+
+@media (max-width: 960px) {
+  .hero-section {
+    background: #0f0f0f !important;
+  }
+
+  .hero-art {
+    min-height: 300px !important;
+    background:
+      linear-gradient(rgba(15, 15, 15, 0.04), rgba(15, 15, 15, 0.16)),
+      linear-gradient(transparent, transparent);
+  }
+
+  .hero-logo-plate {
+    width: min(58%, 285px) !important;
+    max-width: 285px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-art {
+    min-height: 245px !important;
+    border-radius: 22px !important;
+  }
+
+  .hero-logo-plate {
+    width: min(62%, 230px) !important;
+    max-width: 230px !important;
+  }
+}
+
+
+/* Keep the user's supplied logo artwork, but remove only the rectangular photo background so the plate sits cleanly centered. */
+.hero-logo-plate {
+  width: min(72%, 500px) !important;
+  max-width: 500px !important;
+}
+
+@media (max-width: 960px) {
+  .hero-logo-plate {
+    width: min(66%, 310px) !important;
+    max-width: 310px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-logo-plate {
+    width: min(70%, 250px) !important;
+    max-width: 250px !important;
+  }
+}
+
+
+/* User correction: make the supplied background panel larger/uncropped around the logo and remove the title text. */
+.hero-art {
+  background:
+    linear-gradient(rgba(15, 15, 15, 0.03), rgba(15, 15, 15, 0.10)),
+    linear-gradient(transparent, transparent),
+    #0f0f0f !important;
+}
+
+@media (min-width: 961px) {
+  .hero-art {
+    min-height: 430px !important;
+  }
+
+  .hero-logo-plate {
+    width: min(64%, 470px) !important;
+    max-width: 470px !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-art {
+    background:
+      linear-gradient(rgba(15, 15, 15, 0.03), rgba(15, 15, 15, 0.10)),
+      linear-gradient(transparent, transparent),
+      #0f0f0f !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-art {
+    min-height: 260px !important;
+  }
+
+  .hero-logo-plate {
+    width: min(62%, 230px) !important;
+    max-width: 230px !important;
+  }
+}
+
+
+/* User correction: remove the two gray/boxed panels around the supplied hero artwork.
+   Keep only the supplied image content blended into the dark hero. */
+.hero-art {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background:
+    radial-gradient(circle at 48% 48%, rgba(233, 75, 75, 0.10), transparent 18rem),
+    linear-gradient(transparent, transparent);
+}
+
+.hero-art::after,
+.hero-logo-plate::before,
+.hero-logo-plate::after {
+  display: none !important;
+  content: none !important;
+}
+
+.hero-logo-plate {
+  filter: drop-shadow(0 24px 28px rgba(0, 0, 0, 0.50)) !important;
+}
+
+@media (min-width: 961px) {
+  .hero-art {
+    min-height: 430px !important;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(233, 75, 75, 0.10), transparent 18rem),
+      linear-gradient(transparent, transparent) !important;
+  }
+
+  .hero-logo-plate {
+    width: min(62%, 455px) !important;
+    max-width: 455px !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-art {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(233, 75, 75, 0.10), transparent 13rem),
+      linear-gradient(transparent, transparent);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-art {
+    min-height: 260px !important;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(233, 75, 75, 0.09), transparent 11rem),
+      linear-gradient(transparent, transparent);
+  }
+}
+
+
+/* Final blend pass: remove image/card rectangles completely.
+   Use transparent extracted decor (leaves/chopsticks/glow) plus the clean supplied logo only. */
+.hero-art {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background:
+    radial-gradient(circle at 34% 50%, rgba(233, 75, 75, 0.16), transparent 11rem),
+    linear-gradient(transparent, transparent) !important;
+  isolation: isolate;
+}
+
+.hero-logo-plate {
+  z-index: 4 !important;
+  width: min(58%, 420px) !important;
+  max-width: 420px !important;
+}
+
+@media (min-width: 961px) {
+  .hero-art {
+    min-height: 420px !important;
+    background:
+      radial-gradient(circle at 34% 50%, rgba(233, 75, 75, 0.16), transparent 12rem),
+      linear-gradient(transparent, transparent) !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-art {
+    background:
+      radial-gradient(circle at 35% 50%, rgba(233, 75, 75, 0.14), transparent 9rem),
+      linear-gradient(transparent, transparent);
+  }
+
+  .hero-logo-plate {
+    width: min(60%, 285px) !important;
+    max-width: 285px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-art {
+    min-height: 250px !important;
+    background:
+      radial-gradient(circle at 35% 50%, rgba(233, 75, 75, 0.13), transparent 8rem),
+      linear-gradient(transparent, transparent);
+  }
+
+  .hero-logo-plate {
+    width: min(63%, 225px) !important;
+    max-width: 225px !important;
+  }
+}
+
+
+/* User supplied a final combined hero image: use it alone, in the same artwork position.
+   Disable all previously generated separate background/logo/decor layers. */
+.hero-sauce,
+.hero-logo-plate,
+.hero-art::before,
+.hero-art::after {
+  display: none !important;
+  content: none !important;
+}
+
+.brand-mark img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+.hero-art {
+  display: grid !important;
+  place-items: center !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  min-height: 420px !important;
+}
+
+.hero-combined-image {
+  display: block;
+  width: min(96%, 620px);
+  max-width: 620px;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 28px 42px rgba(0, 0, 0, 0.42));
+}
+
+@media (max-width: 960px) {
+  .hero-art {
+    min-height: 310px !important;
+  }
+
+  .hero-combined-image {
+    width: min(96%, 430px);
+    max-width: 430px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-art {
+    min-height: 260px !important;
+  }
+
+  .hero-combined-image {
+    width: min(100%, 350px);
+    max-width: 350px;
+  }
+}
+
+
+/* Correction: restore the product image background texture. Do not let hero cleanup affect product cards. */
+.menu-image {
+  background:
+    radial-gradient(circle at 52% 45%, rgba(233, 75, 75, 0.18), transparent 34%),
+    linear-gradient(rgba(10,10,10,.58), rgba(10,10,10,.78)),
+    url('/images/design/black-red/product-background-texture.png') center / cover no-repeat,
+    #111 !important;
+}
+
+/* Make the new combined hero image feel designed/blended, not like a plain square image.
+   No opacity reduction: keep the image fully vivid, add edge feathering, radius, shadow and glow only. */
+.hero-combined-image {
+  opacity: 1 !important;
+  border-radius: 34px !important;
+  overflow: hidden !important;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.58),
+    0 0 0 1px rgba(245, 245, 241, 0.035),
+    0 0 70px rgba(233, 75, 75, 0.10) !important;
+  filter: drop-shadow(0 26px 36px rgba(0, 0, 0, 0.50)) !important;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-composite: intersect;
+}
+
+@media (max-width: 640px) {
+  .hero-combined-image {
+    border-radius: 24px !important;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    mask-composite: intersect;
+  }
+}
+
+
+/* Topbar brand icon: use the small supplied sushi symbol cleanly, without cropping it. */
+.brand-mark {
+  background: #0f0f0f !important;
+}
+
+.brand-mark img {
+  object-fit: contain !important;
+  padding: 4px !important;
+}
+
+
+/* Topbar icon size correction: let the supplied symbol image fill the whole circle, no small icon inside a larger ring. */
+.brand-mark {
+  width: 50px !important;
+  height: 50px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  box-shadow: 0 0 0 1px rgba(233, 75, 75, 0.85), 0 0 0 7px rgba(233, 75, 75, 0.08), 0 12px 30px rgba(0, 0, 0, 0.48) !important;
+}
+
+.brand-mark img {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 50% !important;
+}
+
+@media (max-width: 640px) {
+  .brand-mark {
+    width: 46px !important;
+    height: 46px !important;
+  }
+}
+
+
+/* Remove the extra outer circle from the topbar logo; keep only the circle inside the supplied image. */
+.brand-mark {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.brand-mark img {
+  border-radius: 0 !important;
+}
+
+
+/* Footer copyright credit */
+.copyright-credit {
+  color: rgba(245, 245, 241, 0.82);
+  font-weight: 700;
+}
+
+.copyright-credit a {
+  color: var(--br-red-2, #ff6f62);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 111, 98, 0.5);
+}
+
+.copyright-credit a:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
