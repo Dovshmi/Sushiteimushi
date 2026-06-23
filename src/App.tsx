@@ -1,5 +1,6 @@
 import { Minus, Plus, Search, Send, ShoppingBag, Trash2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import './App.css'
 import { business, categories, menuItems, type MenuItem } from './data/menu'
 
@@ -370,6 +371,7 @@ function App() {
         </div>
         <button className="drawer-backdrop" onClick={() => setIsCartOpen(false)} type="button" aria-label="סגירת סל" />
       </aside>
+      <Analytics />
     </main>
   )
 }
