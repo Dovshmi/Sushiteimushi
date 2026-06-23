@@ -15,7 +15,7 @@ export const business = {
   whatsappPhone: '972532312540',
   pickup: 'קיבוץ גבולות',
   orderHours: 'אפשר להזמין מראש · איסוף עצמי מקיבוץ גבולות · יש משלוחים',
-  note: 'ההזמנה נשלחת ב-WhatsApp ומאושרת רק לאחר תשובה מהעסק.',
+  note: 'ההזמנה נשלחת ב-WhatsApp ומאושרת על ידי העסק ב-WhatsApp.',
 }
 
 export const categories = [

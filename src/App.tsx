@@ -156,12 +156,10 @@ function App() {
           <p className="eyebrow">סושי משפחתי · טרי · בהזמנה מראש</p>
           <h1>
             <span className="hero-title-line">סושי מודרני</span>{' '}
-            <span className="hero-title-line">בטעם ביתי,</span>{' '}
-            <span className="hero-title-line">נשלח אליכם</span>{' '}
-            <span className="hero-title-line">ב-WhatsApp.</span>
+            <span className="hero-title-line">בטעם ביתי.</span>
           </h1>
           <p className="hero-text">
-            בוחרים רולים, ממלאים פרטים ושולחים את סיכום ההזמנה ישירות ל-{business.name}. התשלום והאישור מתבצעים מול העסק ב-WhatsApp.
+            בוחרים רולים, ממלאים פרטים ושולחים את סיכום ההזמנה ישירות ל-{business.name}. אנחנו נדאג להכין לכם סושי טרי, צבעוני ומפנק.
           </p>
           <div className="hero-actions">
             <a href="#menu" className="primary-button">לתפריט</a>
@@ -184,10 +182,6 @@ function App() {
         </div>
       </section>
 
-      <section className="notice-card">
-        <strong>חשוב לדעת:</strong> {business.note} להזמנות מיוחדות כמו מגש מסיבה ושתייה — המחיר הסופי יאושר מול העסק ב-WhatsApp.
-      </section>
-
       <section className="how-section" aria-label="איך מזמינים">
         <article className="step-card">
           <span>1</span>
@@ -201,7 +195,7 @@ function App() {
         </article>
         <article className="step-card">
           <span>3</span>
-          <strong>שולחים ב-WhatsApp</strong>
+          <strong>שולחים הזמנה</strong>
           <p>ההזמנה נשלחת לעסק, והעסק חוזר אליכם לאישור ותשלום.</p>
         </article>
       </section>
