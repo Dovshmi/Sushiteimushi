@@ -1,5 +1,5 @@
 import { Minus, Plus, Search, Send, ShoppingBag, Trash2 } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import { business, categories, menuItems, type MenuItem } from './data/menu'
 
@@ -56,6 +56,27 @@ function App() {
   const [address, setAddress] = useState('')
   const [notes, setNotes] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
+  const [areMenuControlsPinned, setAreMenuControlsPinned] = useState(false)
+  const menuControlsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const getPinOffset = () => (window.innerWidth <= 640 ? 62 : 88)
+
+    const updatePinnedState = () => {
+      const controls = menuControlsRef.current
+      if (!controls) return
+      setAreMenuControlsPinned(controls.getBoundingClientRect().top <= getPinOffset())
+    }
+
+    updatePinnedState()
+    window.addEventListener('scroll', updatePinnedState, { passive: true })
+    window.addEventListener('resize', updatePinnedState)
+
+    return () => {
+      window.removeEventListener('scroll', updatePinnedState)
+      window.removeEventListener('resize', updatePinnedState)
+    }
+  }, [])
 
   const cartItems = useMemo(
     () =>
@@ -212,29 +233,33 @@ function App() {
           <span className="results-count">{filteredItems.length} פריטים</span>
         </div>
 
-        <div className="menu-controls">
-          <label className="search-box" aria-label="חיפוש בתפריט">
-            <Search size={19} />
-            <input
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="חיפוש: סלמון, טונה, מטוגן, שתייה..."
-            />
-          </label>
-        </div>
+        <div className={`menu-sticky-controls${areMenuControlsPinned ? ' is-pinned' : ''}`} ref={menuControlsRef}>
+          <div className="menu-sticky-controls-inner">
+            <div className="menu-controls">
+              <label className="search-box" aria-label="חיפוש בתפריט">
+                <Search size={19} />
+                <input
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="חיפוש: סלמון, טונה, מטוגן, שתייה..."
+                />
+              </label>
+            </div>
 
-        <nav className="category-tabs" aria-label="קטגוריות תפריט">
-          {categoryOptions.map((category) => (
-            <button
-              className={category === activeCategory ? 'active' : ''}
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              type="button"
-            >
-              {category}
-            </button>
-          ))}
-        </nav>
+            <nav className="category-tabs" aria-label="קטגוריות תפריט">
+              {categoryOptions.map((category) => (
+                <button
+                  className={category === activeCategory ? 'active' : ''}
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  type="button"
+                >
+                  {category}
+                </button>
+              ))}
+            </nav>
+          </div>
+        </div>
 
         {filteredItems.length === 0 ? (
           <div className="no-results">
@@ -250,7 +275,6 @@ function App() {
                 <article className="menu-card" key={item.id}>
                   <div className="menu-image">
                     {item.image ? <img src={item.image} alt={item.name} /> : <span aria-hidden="true">{getItemEmoji(item)}</span>}
-                    {!item.image && <small>תמונה בקרוב</small>}
                   </div>
                   <div className="roll-number">#{item.number}</div>
                   <div className="menu-card-content">

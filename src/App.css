@@ -819,7 +819,7 @@ a {
     padding-inline: 10px;
     padding-top: 10px;
     padding-bottom: 96px;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .topbar {
@@ -1093,5 +1093,411 @@ a {
 
   .cart-total {
     font-size: 1.12rem;
+  }
+}
+@media (max-width: 640px) {
+  .hero-section {
+    gap: 14px;
+    padding: 22px 0 18px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(1.75rem, 8.6vw, 2.25rem);
+  }
+
+  .hero-text {
+    max-width: 310px;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .hero-actions {
+    margin-top: 16px;
+  }
+
+  .info-grid {
+    margin-top: 12px;
+  }
+
+  .hero-art {
+    min-height: 190px;
+    border-radius: 24px;
+  }
+
+  .floating-card {
+    display: none;
+  }
+
+  .category-tabs {
+    scrollbar-width: none;
+  }
+
+  .category-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .menu-grid {
+    gap: 10px;
+  }
+
+  .menu-card {
+    display: grid;
+    grid-template-columns: 108px minmax(0, 1fr);
+    grid-template-areas:
+      "image content"
+      "image actions";
+    align-items: stretch;
+    min-height: 0;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 22px;
+  }
+
+  .menu-image {
+    grid-area: image;
+    width: 108px;
+    min-height: 122px;
+    height: 100%;
+    margin: 0;
+    border-radius: 18px;
+  }
+
+  .menu-image img {
+    width: 94%;
+    height: 94%;
+  }
+
+  .menu-image span {
+    font-size: 2.6rem;
+  }
+
+  .roll-number {
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    font-size: 0.78rem;
+  }
+
+  .menu-card-content {
+    grid-area: content;
+    min-width: 0;
+  }
+
+  .menu-card-header {
+    align-items: start;
+    gap: 10px;
+  }
+
+  .menu-card h3 {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 1.12rem;
+    line-height: 1.08;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .price {
+    font-size: 1.02rem;
+  }
+
+  .menu-card p {
+    display: -webkit-box;
+    overflow: hidden;
+    margin-top: 7px;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .badges {
+    gap: 5px;
+    margin-top: 8px;
+  }
+
+  .badges span {
+    padding: 4px 7px;
+    font-size: 0.78rem;
+  }
+
+  .card-actions {
+    grid-area: actions;
+    align-self: end;
+    margin-top: 4px;
+  }
+
+  .add-button {
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .quantity-control {
+    grid-template-columns: 36px 1fr 36px;
+    min-height: 38px;
+  }
+
+  .floating-cart {
+    min-height: 40px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .cart-line {
+    gap: 9px;
+    padding: 11px;
+  }
+
+  .cart-item-text small {
+    display: none;
+  }
+
+  .item-note-label textarea {
+    min-height: 46px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .topbar,
+  .hero-section,
+  .how-section,
+  .menu-section,
+  .footer {
+    max-width: 100%;
+  }
+
+  .info-grid span,
+  .step-card,
+  .step-card p,
+  .hero-text {
+    overflow-wrap: anywhere;
+  }
+
+  .step-card {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    overflow: hidden;
+  }
+
+  .brand span:last-child {
+    display: none;
+  }
+
+  .phone-link {
+    margin-inline-start: auto;
+  }
+
+  .info-grid span {
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .step-card {
+    text-align: center;
+  }
+
+  .step-card span {
+    margin-inline: auto;
+  }
+
+  .step-card p {
+    max-width: 310px;
+    margin-inline: auto;
+  }
+}
+
+/* Reliable pinned-top menu controls.
+   The bar appears in its normal menu position first. After the user scrolls past it,
+   React adds .is-pinned and only the inner controls become fixed at the top. */
+.menu-sticky-controls {
+  position: relative;
+  z-index: 21;
+  width: auto;
+  min-height: 0;
+  margin: 0 0 14px;
+  padding: 0;
+}
+
+.menu-sticky-controls-inner {
+  padding: 12px 0 2px;
+  background:
+    linear-gradient(180deg, rgba(9, 7, 6, 0.98) 0%, rgba(9, 7, 6, 0.94) 78%, rgba(9, 7, 6, 0) 100%);
+  backdrop-filter: blur(16px);
+}
+
+.menu-sticky-controls.is-pinned {
+  min-height: 126px;
+}
+
+.menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
+  position: fixed;
+  top: 88px;
+  right: 50%;
+  z-index: 31;
+  width: min(1180px, calc(100% - 28px));
+  padding: 12px 0 2px;
+  transform: translateX(50%);
+}
+
+.menu-sticky-controls .menu-controls,
+.menu-sticky-controls.is-pinned .menu-controls {
+  margin-bottom: 10px;
+}
+
+.menu-sticky-controls .category-tabs,
+.menu-sticky-controls.is-pinned .category-tabs {
+  padding-bottom: 14px;
+}
+
+@media (max-width: 640px) {
+  .site-shell {
+    overflow: visible;
+  }
+
+  .menu-sticky-controls {
+    margin: 0 -10px 12px;
+  }
+
+  .menu-sticky-controls-inner {
+    padding: 8px 10px 0;
+    border-bottom: 1px solid rgba(255, 247, 239, 0.08);
+    background:
+      linear-gradient(180deg, rgba(9, 7, 6, 0.99) 0%, rgba(9, 7, 6, 0.96) 84%, rgba(9, 7, 6, 0) 100%);
+  }
+
+  .menu-sticky-controls.is-pinned {
+    min-height: 112px;
+  }
+
+  .menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
+    top: 62px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px 10px 0;
+    transform: none;
+  }
+
+  .menu-sticky-controls .menu-controls,
+  .menu-sticky-controls.is-pinned .menu-controls {
+    margin-bottom: 8px;
+  }
+
+  .menu-sticky-controls .category-tabs,
+  .menu-sticky-controls.is-pinned .category-tabs {
+    margin-inline: -9px;
+    padding-inline: 9px;
+    padding-bottom: 10px;
+  }
+
+  .menu-sticky-controls .search-box,
+  .menu-sticky-controls.is-pinned .search-box {
+    min-height: 46px;
+    padding: 0 14px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+  }
+
+  .menu-sticky-controls .category-tabs button,
+  .menu-sticky-controls.is-pinned .category-tabs button {
+    padding: 9px 13px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Sticky/fixed helpers need unclipped ancestors. Keep horizontal clipping on body/html only. */
+.site-shell {
+  overflow: visible;
+}
+
+/* Polished glass style for the pinned search/filter bar. */
+.menu-sticky-controls-inner {
+  border: 1px solid transparent;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, padding 180ms ease, border-radius 180ms ease;
+}
+
+.menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
+  padding: 13px 16px 12px;
+  border: 1px solid rgba(255, 247, 239, 0.11);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 95% 0%, rgba(233, 88, 81, 0.16), transparent 30%),
+    radial-gradient(circle at 12% 100%, rgba(95, 125, 85, 0.12), transparent 35%),
+    linear-gradient(180deg, rgba(24, 19, 16, 0.88), rgba(13, 10, 8, 0.82));
+  box-shadow: 0 16px 52px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 247, 239, 0.06);
+}
+
+.menu-sticky-controls.is-pinned .search-box {
+  width: min(540px, 100%);
+  margin-inline-start: auto;
+  border-color: rgba(255, 247, 239, 0.13);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.menu-sticky-controls.is-pinned .category-tabs {
+  gap: 8px;
+  padding-bottom: 0;
+  mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+}
+
+.menu-sticky-controls.is-pinned .category-tabs button {
+  border-color: rgba(255, 247, 239, 0.13);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035));
+  box-shadow: inset 0 1px 0 rgba(255, 247, 239, 0.05);
+}
+
+.menu-sticky-controls.is-pinned .category-tabs button.active {
+  border-color: transparent;
+  background: linear-gradient(135deg, #ff6d65, #e95851);
+  box-shadow: 0 10px 26px rgba(233, 88, 81, 0.24);
+}
+
+@media (max-width: 640px) {
+  .menu-sticky-controls.is-pinned .menu-sticky-controls-inner {
+    top: 58px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+    padding: 8px;
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at 90% 0%, rgba(233, 88, 81, 0.16), transparent 34%),
+      linear-gradient(180deg, rgba(24, 19, 16, 0.92), rgba(12, 9, 8, 0.86));
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 247, 239, 0.06);
+  }
+
+  .menu-sticky-controls.is-pinned {
+    min-height: 108px;
+  }
+
+  .menu-sticky-controls.is-pinned .search-box {
+    width: 100%;
+    min-height: 44px;
+    border-radius: 999px;
+  }
+
+  .menu-sticky-controls.is-pinned .category-tabs {
+    gap: 7px;
+    margin-inline: -2px;
+    padding-inline: 2px;
+  }
+
+  .menu-sticky-controls.is-pinned .category-tabs button {
+    padding: 8px 12px;
+    white-space: nowrap;
   }
 }
