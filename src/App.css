@@ -218,10 +218,13 @@ a {
 
 .hero-art img {
   position: absolute;
-  inset: -32% -34% auto auto;
-  width: 135%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   max-width: none;
-  opacity: 0.72;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.78;
 }
 
 .floating-card {
@@ -406,18 +409,44 @@ a {
   place-items: center;
   overflow: hidden;
   margin: -2px -2px 20px;
-  border: 1px solid rgba(255, 247, 239, 0.1);
+  border: 1px solid rgba(255, 247, 239, 0.12);
   border-radius: 24px;
   background:
-    radial-gradient(circle at 30% 25%, rgba(233, 88, 81, 0.28), transparent 38%),
-    radial-gradient(circle at 76% 74%, rgba(95, 125, 85, 0.34), transparent 44%),
-    linear-gradient(135deg, rgba(255, 247, 239, 0.08), rgba(255, 247, 239, 0.02));
+    radial-gradient(circle at 22% 18%, rgba(233, 88, 81, 0.22), transparent 34%),
+    radial-gradient(circle at 82% 80%, rgba(95, 125, 85, 0.34), transparent 42%),
+    linear-gradient(145deg, rgba(43, 33, 27, 0.96), rgba(14, 11, 9, 0.98));
+  box-shadow: inset 0 0 42px rgba(0, 0, 0, 0.3);
+}
+
+.menu-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255, 247, 239, 0.08), transparent 36%),
+    radial-gradient(circle at 50% 95%, rgba(255, 247, 239, 0.08), transparent 42%);
+}
+
+.menu-image::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  width: 74%;
+  height: 58%;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(255, 245, 225, 0.24), rgba(202, 166, 123, 0.1) 50%, rgba(0, 0, 0, 0) 72%);
+  filter: blur(1px);
+  transform: translateY(8px);
 }
 
 .menu-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.38));
 }
 
 .menu-image span {
@@ -900,8 +929,10 @@ a {
   }
 
   .hero-art img {
-    inset: -34% -36% auto auto;
-    width: 140%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-position: center;
   }
 
   .floating-card {

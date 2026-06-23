@@ -151,7 +151,7 @@ function App() {
           </div>
         </div>
         <div className="hero-art" aria-hidden="true">
-          <img src="/menu-cover.png" alt="" />
+          <img src="/images/menu/main.webp" alt="" />
           <div className="floating-card">
             <strong>8 יח׳ בכל רול</strong>
             <span>מוגש עם וואסאבי, סויה, טריאקי, ספייסי וג׳ינג׳ר</span>

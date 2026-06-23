@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 preview-home.png
+preview-*.png
+sushi_food_images_1_39/
 
 # Editor directories and files
 .vscode/*
