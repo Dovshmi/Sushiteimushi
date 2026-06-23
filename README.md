@@ -344,4 +344,5 @@ This project is licensed under the **MIT License**.
 <div align="center">
   Developed for <strong>סושי טָעִימוּשִי</strong><br />
   Built with 🍣, React, TypeScript, and attention to mobile UX.
+  By Rony Shmidov
 </div>
