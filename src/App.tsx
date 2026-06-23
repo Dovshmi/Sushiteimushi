@@ -241,7 +241,7 @@ function App() {
     <main className="site-shell">
       <header className="topbar">
         <a className="brand" href="#top" aria-label={business.name}>
-          <span className="brand-mark">寿</span>
+          <span className="brand-mark"><img src="/images/design/black-red/topbar-sushi-symbol.png" alt="" /></span>
           <span>{business.name}</span>
         </a>
         <a className="phone-link" href={`https://wa.me/${business.whatsappPhone}`} target="_blank" rel="noreferrer">
@@ -254,7 +254,7 @@ function App() {
           <p className="eyebrow">סושי משפחתי · טרי · בהזמנה מראש</p>
           <h1>
             <span className="hero-title-line">סושי מודרני</span>{' '}
-            <span className="hero-title-line">בטעם ביתי.</span>
+            <span className="hero-title-line">בטעם ביתי</span>
           </h1>
           <p className="hero-text">
             בוחרים רולים, ממלאים פרטים ושולחים את סיכום ההזמנה ישירות ל-{business.name}. אנחנו נדאג להכין לכם סושי טרי, צבעוני ומפנק.
@@ -272,7 +272,7 @@ function App() {
           </div>
         </div>
         <div className="hero-art" aria-hidden="true">
-          <img src="/images/menu/main.webp" alt="" />
+          <img className="hero-combined-image" src="/images/design/black-red/hero-combined-user.png" alt="" />
           <div className="floating-card">
             <strong>8 יח׳ בכל רול</strong>
             <span>מוגש עם וואסאבי, סויה, טריאקי, ספייסי וג׳ינג׳ר</span>
@@ -390,11 +390,19 @@ function App() {
         <strong>{business.name}</strong>
         <span>{business.phoneDisplay}</span>
         <span>{business.orderHours}</span>
+        <span className="copyright-credit">
+          © {new Date().getFullYear()} רוני שמידוב ·{' '}
+          <a href="https://github.com/Dovshmi/Sushiteimushi" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+        </span>
       </footer>
 
-      <button className="floating-cart" onClick={() => setIsCartOpen(true)} type="button">
-        <ShoppingBag size={20} /> סל · {cartCount} · {formatShekel(total)}
-      </button>
+      {cartCount > 0 && (
+        <button className="floating-cart" onClick={() => setIsCartOpen(true)} type="button">
+          <ShoppingBag size={20} /> סל · {cartCount} · {formatShekel(total)}
+        </button>
+      )}
 
       <aside className={`cart-drawer ${isCartOpen ? 'open' : ''}`} aria-hidden={!isCartOpen}>
         <div className="cart-panel">

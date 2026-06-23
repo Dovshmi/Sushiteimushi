@@ -28,7 +28,7 @@ export const categories = [
   'שתייה',
 ] as const
 
-const menuImagePath = (number: number) => `/images/menu/${number}.webp`
+const menuImagePath = (number: number) => `/images/menu-normalized/${number}.webp`
 
 export const menuItems: MenuItem[] = [
   { id: 'roll-1', number: 1, category: categories[0], name: 'פילדלפיה', description: 'סלמון, קרים-צ׳יז, מלפפון. אפשרות לסלמון בתנור.', price: 52, badges: ['דג טרי'], image: menuImagePath(1) },
