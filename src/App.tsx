@@ -307,7 +307,7 @@ function App() {
         <div className="hero-copy">
           <p className="eyebrow">סושי משפחתי · טרי · בהזמנה מראש</p>
           <h1>
-            <span className="hero-title-line">סושי מודרני</span>{' '}
+            <span className="hero-title-line">סוּשִׁי טָעִימוּשִׁי</span>{' '}
             <span className="hero-title-line">בטעם ביתי</span>
           </h1>
           <p className="hero-text">
