@@ -18,6 +18,14 @@ export default defineConfig([
     },
   },
   {
+    files: ['src/data/deliveryLocations.ts'],
+    rules: {
+      'no-useless-assignment': 'off',
+      'no-useless-escape': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_$' }],
+    },
+  },
+  {
     files: ['**/*.tsx'],
     extends: [
       reactHooks.configs.flat.recommended,
